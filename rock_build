@@ -90,14 +90,26 @@ if test "x$SKIP_SUCCESSFUL" = "xtrue" && test -d dev; then
     fi
 fi
 
-if test -z "$RUBY"; then
-    RUBY=ruby1.9.1
-fi
-if test -z "$GEM"; then
-    GEM=gem1.9.1
-fi
-if test -z "$MODE"; then
-    MODE=auto
+if cat /etc/*-release | grep utopic > /dev/null then
+	if test -z "$RUBY"; then
+	    RUBY=ruby2.1
+	fi
+	if test -z "$GEM"; then
+	    GEM=gem2.1
+	fi
+	if test -z "$MODE"; then
+	    MODE=auto
+	fi
+else
+	if test -z "$RUBY"; then
+	    RUBY=ruby1.9.1
+	fi
+	if test -z "$GEM"; then
+	    GEM=gem1.9.1
+	fi
+	if test -z "$MODE"; then
+	    MODE=auto
+	fi
 fi
 
 if test "x$MODE" = "xincremental"; then
