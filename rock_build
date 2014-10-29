@@ -140,13 +140,16 @@ if test -d dev/install/cache; then
     rsync -a dev/install/cache/ archive_cache/
 fi
 
+export GEM_HOME=$PWD/dev/.gems
+
 if test "x$do_incremental" = "x0"; then
     if test "x$do_full_cleanup" = "x1"; then
         rm -rf dev
     elif test -d dev; then
         rm -rf dev/install
         find dev -type d -name build -exec rm -rf {} \; -prune
-        rm -rf dev/.gems dev/autoproj
+        rm -rf dev/autoproj
+        gem update
     fi
 fi
 
@@ -160,7 +163,7 @@ if test -d archive_cache; then
     rsync -a archive_cache/ dev/install/cache/
 fi
 
-export GEM_HOME=$PWD/dev/.gems
+
 export AUTOPROJ_OSDEPS_MODE
 export AUTOPROJ_BOOTSTRAP_IGNORE_NONEMPTY_DIR=1
 
