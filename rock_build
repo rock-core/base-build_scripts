@@ -90,7 +90,7 @@ if test "x$SKIP_SUCCESSFUL" = "xtrue" && test -d dev; then
     fi
 fi
 
-if cat /etc/*-release | grep utopic > /dev/null then
+if cat /etc/*-release | grep utopic > /dev/null; then
 	if test -z "$RUBY"; then
 	    RUBY=ruby2.1
 	fi
