@@ -149,7 +149,7 @@ if test "x$do_incremental" = "x0"; then
         rm -rf dev/install
         find dev -type d -name build -exec rm -rf {} \; -prune
         rm -rf dev/autoproj
-        gem update
+        $GEM update
     fi
 fi
 
