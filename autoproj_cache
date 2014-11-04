@@ -91,10 +91,10 @@ if test "x$SKIP_SUCCESSFUL" = "xtrue" && test -d dev; then
 fi
 
 if test -z "$RUBY"; then
-    RUBY=ruby1.9.1
+    RUBY=ruby
 fi
 if test -z "$GEM"; then
-    GEM=gem1.9.1
+    GEM=gem
 fi
 if test -z "$MODE"; then
     MODE=auto
