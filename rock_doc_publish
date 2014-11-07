@@ -46,8 +46,7 @@ for source in "$@"; do
     # Extract documentation and api from each flavor to our 'export' 
     # directory 
     rsync -r --delete $source_path/ $TARGET_DIR/$target_dir/
-
-    echo "Redirect $target_dir/autoproj_bootstrap https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap" >> $TARGET_DIR/.htaccess
+    echo "RewriteRule ^$target_dir/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
 done
 
 # Fix permissions
