@@ -72,7 +72,7 @@ else
 fi
 
 if test -z "$BOOTSTRAP_URL"; then
-    BOOTSTRAP_URL=http://rock-robotics.org/master/autoproj_bootstrap
+    BOOTSTRAP_URL=http://rock-robotics.org/autoproj_bootstrap
 fi
 
 if test -z "$AUTOPROJ_OSDEPS_MODE"; then
