@@ -3,8 +3,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 
-
-page = Nokogiri::HTML(open('http://buildsrv01:8080/job/#{ARGV[0]}/'))
+page = Nokogiri::HTML(open("http://buildsrv01:8080/job/#{ARGV[0]}/"))
 
 page.remove_namespaces!
 
