@@ -24,6 +24,18 @@ table.xpath('//img').each do |img|
     if img["src"].include? "grey.png"
         img["src"] = "grey.png"
     end
+    if img["src"].include? "red_anime.png"
+        img["src"] = "red_anime.png"
+    end
+    if img["src"].include? "blue_anime.png"
+        img["src"] = "blue_anime.png"
+    end
+    if img["src"].include? "aborted.png"
+        img["src"] = "aborted_anime.png"
+    end
+    if img["src"].include? "grey_anime.png"
+        img["src"] = "grey_anime.png"
+    end
 end
 
 #table.css('#model-link inside').each do |link|
