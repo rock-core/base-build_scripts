@@ -14,7 +14,7 @@ echo "generated $DATE" >> status/index.html
 
 for build in $@; do
 echo "getting status of $build"
-ruby ./extract_status.rb > "status/$build.html"
+ruby ./extract_status.rb $build > "status/$build.html"
 echo "<h1>$build</h1>" >> status/index.html
 echo "<iframe src=\"$build.html\" width=\"550\" height=\"150\"></iframe>" >> status/index.html
 done
