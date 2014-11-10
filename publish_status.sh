@@ -10,7 +10,7 @@
 echo "<html lang=\"en\"><head><meta charset=\"utf-8\"><title>Rock Current Build Status</title></head><body>" > status/index.html
 
 DATE=$(date)
-echo "generated $DATE" >> status/index.html
+
 
 for build in $@; do
 echo "getting status of $build"
@@ -20,5 +20,7 @@ echo "<iframe src=\"$build.html\" width=\"550\" height=\"150\"></iframe>" >> sta
 done
 
 echo "</body></html>" >> status/index.html
+
+echo "generated: $DATE" >> status/index.html
 
 (lftp -c "open $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete ./status www/" )
