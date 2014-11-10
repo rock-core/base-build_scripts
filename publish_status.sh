@@ -9,7 +9,7 @@
 
 echo "<html lang=\"en\"><head><meta charset=\"utf-8\"><title>Rock Current Build Status</title></head><body>" > status/index.html
 
-DATE = $(date)
+DATE=$(date)
 echo "generated $DATE" >> status/index.html
 
 for build in $@; do
