@@ -24,17 +24,17 @@ table.xpath('//img').each do |img|
     if img["src"].include? "grey.png"
         img["src"] = "grey.png"
     end
-    if img["src"].include? "red_anime.png"
-        img["src"] = "red_anime.png"
+    if img["src"].include? "red_anime.gif"
+        img["src"] = "red_anime.gif"
     end
-    if img["src"].include? "blue_anime.png"
-        img["src"] = "blue_anime.png"
+    if img["src"].include? "blue_anime.gif"
+        img["src"] = "blue_anime.gif"
     end
-    if img["src"].include? "aborted.png"
-        img["src"] = "aborted_anime.png"
+    if img["src"].include? "aborted_anime.gif"
+        img["src"] = "aborted_anime.gif"
     end
-    if img["src"].include? "grey_anime.png"
-        img["src"] = "grey_anime.png"
+    if img["src"].include? "grey_anime.gif"
+        img["src"] = "grey_anime.gif"
     end
 end
 
