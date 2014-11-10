@@ -12,7 +12,7 @@ echo "<html lang=\"en\"><head><meta charset=\"utf-8\"><title>Rock Current Build 
 for build in $@; do
 echo "getting status of $build"
 ruby ./extract_status.rb > "status/$build.html"
-echo "<h1>$build</h1>" >> status/status.html
+echo "<h1>$build</h1>" >> status/index.html
 echo "<iframe src=\"$build.html\" width=\"550\" height=\"150\"></iframe>" >> status/index.html
 done
 
