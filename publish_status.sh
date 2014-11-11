@@ -13,7 +13,7 @@ echo "generated: $DATE<br>" >> status/index.html
 
 ruby ./extract_overview.rb > "status/overview.html"
 echo "<h1>Overview</h1>" >> status/index.html
-echo "<iframe src=\"overview.html\" width=\"900\" height=\"550\"></iframe>" >> status/index.html
+echo "<iframe src=\"overview.html\" width=\"1300\" height=\"400\"></iframe>" >> status/index.html
 
 for build in $@; do
 echo "getting status of $build"
