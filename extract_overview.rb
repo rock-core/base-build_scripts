@@ -58,6 +58,7 @@ end
 
 
 table.xpath('//@class').remove
+table.xpath('//@href').remove
 
 puts table.to_html
 
