@@ -49,7 +49,7 @@ table.xpath('//@class').remove
 #copy log files
 table.css('a').each do |a|
     if a["href"]
-	if a["href"].start_with?('Flavor')
+	if a["href"].upcase.start_with?('FLAVOR')
             consoleurl_base = "/job/#{ARGV[0]}/lastBuild/" + a["href"]
 	else
             consoleurl_base = "/" + a["href"]
@@ -64,7 +64,7 @@ table.css('a').each do |a|
 	end
 	consolecopy.close
 	console.close
-	a["href"] = consolefileurl
+	a["href"] = consoleurl_base + "console"
     end
 end
 
