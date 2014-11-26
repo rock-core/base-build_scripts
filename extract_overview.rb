@@ -14,24 +14,13 @@ table = overview.at_css('#projectstatus')
 
 table.xpath('//img').each do |img|
 
-    if img["src"].include? "/static/e427e263/images/16x16/"
-        tmp = img["src"]
-        tmp.slice! "/static/e427e263/images/16x16/"
-	img["src"] = tmp
-    end
-    if img["src"].include? "/static/e427e263/images/32x32/health"
-        #tmp = img["src"]
-        #tmp.slice! "/static/e427e263/images/32x32/"
-	#img["src"] = tmp
+    tmp = File.basename(img["src"])
+    img["src"] = tmp
+
+    if img["src"].include? "health"
 	img.remove
-	next
     end
-    if img["src"].include? "/static/e427e263/images/32x32/"
-        tmp = img["src"]
-        tmp.slice! "/static/e427e263/images/32x32/"
-	img["src"] = tmp
-    end
-    if img["src"]=="/static/e427e263/images/24x24/clock.png"
+    if img["src"]=="clock.png"
 	img.remove
     end
 end
