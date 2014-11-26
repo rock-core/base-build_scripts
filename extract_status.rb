@@ -45,7 +45,6 @@ end
 #end
 table.xpath('//@class').remove
 
-puts table.to_html
 
 #copy log files
 table.css('a').each do |a|
@@ -69,4 +68,4 @@ table.css('a').each do |a|
     end
 end
 
-
+puts table.to_html
