@@ -50,10 +50,10 @@ puts table.to_html
 #copy log files
 table.css('a').each do |a|
     if a["href"]
-	if a["href"].start_with?('FLAVOR')
+	if a["href"].start_with?('Flavor')
             consoleurl_base = "/job/#{ARGV[0]}/lastBuild/" + a["href"]
 	else
-            consoleurl_base = a["href"]
+            consoleurl_base = "/" + a["href"]
 	end
 	consoleurl = base_url + consoleurl_base + "consoleText"
 	consolefileurl = "status" + consoleurl_base + "console"
