@@ -48,14 +48,14 @@ table.xpath('//@class').remove
 
 #copy log files
 table.css('a').each do |a|
-    if a["href"]
-	if a["href"].upcase.start_with?('FLAVOR')
+    if a['href']
+	if a['href'].upcase.start_with?('FLAVOR')
             consoleurl_base = "/job/#{ARGV[0]}/lastBuild/" + a["href"]
 	else
-            consoleurl_base = "/" + a["href"]
+            consoleurl_base = '/' + a['href']
 	end
-	consoleurl = base_url + consoleurl_base + "consoleText"
-	consolefileurl = "status" + consoleurl_base + "console"
+	consoleurl = base_url + consoleurl_base + 'consoleText'
+	consolefileurl = 'status' + consoleurl_base + 'console'
         console = open(consoleurl)
 	FileUtils.mkdir_p File.dirname(consolefileurl)
 	consolecopy = File.open(consolefileurl,'w')
@@ -64,7 +64,8 @@ table.css('a').each do |a|
 	end
 	consolecopy.close
 	console.close
-	a["href"] = '/' + consolefileurl
+	a['href'] = '/' + consolefileurl
+        a['target'] = '_blank'
     end
 end
 
