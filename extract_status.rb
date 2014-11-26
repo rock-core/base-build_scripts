@@ -51,16 +51,16 @@ puts table.to_html
 table.css('a').each do |a|
     if a["href"]
         consoleurl = base_url + a["href"] + "consoleText"
-        consolefileurl = a["href"] + "console"
+        consolefileurl = "status" + a["href"] + "console"
         console = open(consoleurl)
-	FileUtils.mkdir_p File.dirname("status"+consolefileurl)
-	consolecopy = File.open("status"+consolefileurl,'w')
+	FileUtils.mkdir_p File.dirname(consolefileurl)
+	consolecopy = File.open(consolefileurl,'w')
 	console.each_line do |line|
 	    consolecopy.write(line)
 	end
 	consolecopy.close
 	console.close
-	a["href"] = consolefileurl[1..-1]
+	a["href"] = consolefileurl
     end
 end
 
