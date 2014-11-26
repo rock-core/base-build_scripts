@@ -64,7 +64,7 @@ table.css('a').each do |a|
 	end
 	consolecopy.close
 	console.close
-	a["href"] = consoleurl_base + "console"
+	a["href"] = '/' + consolefileurl
     end
 end
 
