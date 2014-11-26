@@ -50,7 +50,12 @@ puts table.to_html
 #copy log files
 table.css('a').each do |a|
     if a["href"]
-        consoleurl = base_url + a["href"] + "consoleText"
+	puts a["href"]
+	if a["href"].start_with?('Flavor')
+	    consoleurl = base_url + "/job/#{ARGV[0]}/lastBuild/"+a["href"] + "consoleText"
+	else
+            consoleurl = base_url + a["href"] + "consoleText"		
+	end
         consolefileurl = "status" + a["href"] + "console"
         console = open(consoleurl)
 	FileUtils.mkdir_p File.dirname(consolefileurl)
