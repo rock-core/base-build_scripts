@@ -16,10 +16,10 @@ echo "<h1>Overview</h1>" >> status/index.html
 echo "<iframe src=\"overview.html\" width=\"1300\" height=\"400\"></iframe>" >> status/index.html
 
 for build in $@; do
-echo "getting status of $build"
-ruby ./extract_status.rb $build > "status/$build.html"
-echo "<h1>$build</h1>" >> status/index.html
-echo "<iframe src=\"$build.html\" width=\"550\" height=\"150\"></iframe>" >> status/index.html
+	echo "getting status of $build"
+	echo "<h1>$build</h1>" >> status/index.html
+	echo "<iframe src=\"$build.html\" width=\"550\" height=\"150\"></iframe>" >> status/index.html
+	ruby ./extract_status.rb $build > "status/$build.html"
 done
 
 echo "</body></html>" >> status/index.html
