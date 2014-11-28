@@ -12,6 +12,10 @@ page.remove_namespaces!
 
 
 table = page.at_css('#configuration-matrix')
+if !table
+    table = page.at_css('#matrix')
+    table.at_css('h2').remove
+end
 
 table.xpath('//img').each do |img|
     if img["src"].include? "red.png"
@@ -69,4 +73,4 @@ table.css('a').each do |a|
     end
 end
 
-puts table.to_html
+puts table.to_html.gsub("&nbsp;", "").gsub("&Acirc;","")
