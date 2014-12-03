@@ -21,7 +21,7 @@ if test -d $TARGET_DIR; then
 fi
 
 if test -n "$TEMPLATE_DIR"; then
-    cp -r $TEMPLATE_DIR $TARGET_DIR
+    rsync -r $TEMPLATE_DIR $TARGET_DIR
 else
     mkdir $TARGET_DIR
 fi
@@ -46,8 +46,8 @@ for source in "$@"; do
     # Extract documentation and api from each flavor to our 'export' 
     # directory 
     rsync -r --delete $source_path/ $TARGET_DIR/$target_dir/
-    echo "RewriteRule ^$target_dir/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
-    echo "RewriteRule ^$target_dir/autoproj_bootstrap_dev$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
+    #echo "RewriteRule ^$target_dir/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
+    #echo "RewriteRule ^$target_dir/autoproj_bootstrap_dev$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
 done
 
 # Fix permissions
