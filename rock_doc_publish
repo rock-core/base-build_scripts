@@ -47,7 +47,7 @@ for source in "$@"; do
     # directory 
     rsync -r --delete $source_path/ $TARGET_DIR/$target_dir/
     echo "RewriteRule ^$target_dir/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
-    echo "RewriteRule ^$target_dir/autoproj_bootstrap_dev$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
+    echo "RewriteRule ^$target_dir/autoproj_bootstrap-dev$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
 done
 
 # Fix permissions
