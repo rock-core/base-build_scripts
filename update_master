@@ -11,3 +11,10 @@ if test -z "$CONFIG_DIR"; then
     git remote update
     git reset --hard origin/master
 fi
+
+if test -z "$WWW_TEMPLATE_DIR"; then
+    cd $WWW_TEMPLATE_DIR
+    git remote update
+    git reset --hard origin/master
+fi
+

@@ -21,7 +21,7 @@ if test -d $TARGET_DIR; then
 fi
 
 if test -n "$TEMPLATE_DIR"; then
-    rsync -r $TEMPLATE_DIR $TARGET_DIR
+    rsync -r --exclude '.git' $TEMPLATE_DIR $TARGET_DIR
 else
     mkdir $TARGET_DIR
 fi
