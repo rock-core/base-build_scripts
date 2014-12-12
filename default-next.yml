@@ -21,3 +21,5 @@ ccache: false
 iceCC: false
 ROCK_SELECTED_FLAVOR: next
 ROCK_BRANCH: next
+ROCK_FLAVOR: next
+
