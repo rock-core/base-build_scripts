@@ -38,7 +38,7 @@ if test -n "$FLAVOR_AXIS"; then
         fi
         available_flavors=""
         for flavor_dir in $root_dir/*; do
-            if find "$flavor_dir" -maxdepth 3 -name 'dev' -type d -prune; then
+            if find "$flavor_dir" -maxdepth 4 -name 'dev' -type d -prune; then
                 flavor_name=`basename $flavor_dir`
                 if test -z "$available_flavors"; then
                     available_flavors="$flavor_name"
