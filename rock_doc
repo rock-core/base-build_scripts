@@ -41,6 +41,8 @@ rm -f docgen.stamp
 echo "generating documentation for $build_dir"
 rm -rf doc
 mkdir doc
+#in case the api dir is not available, create it
+mkdir -p api
 cp -r api doc
 
 if test -z "$REF_AUTOPROJ_INSTALL"; then
