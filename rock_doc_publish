@@ -21,7 +21,7 @@ if test -d $TARGET_DIR; then
 fi
 
 if test -n "$TEMPLATE_GIT"; then
-    if test -d $TEMPLATE_DIR then
+    if test -d $TEMPLATE_DIR; then
         $(cd $TEMPLATE_DIR;
           git remote update;
           git reset --hard origin/master;
