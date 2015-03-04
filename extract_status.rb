@@ -73,5 +73,4 @@ table.css('a').each do |a|
     end
 end
 
-puts '<link rel="stylesheet" type="text/css" href="jenkins_style.css">'
 puts table.to_html.gsub("&nbsp;", "").gsub("&Acirc;","")

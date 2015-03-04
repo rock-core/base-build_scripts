@@ -7,7 +7,7 @@
 
 #BUILDS="rock-basic rock"
 
-echo "<html lang=\"en\"><head><meta charset=\"utf-8\"><title>Rock Current Build Status</title></head><body>" > status/index.html
+echo '<html lang=\"en\"><head><meta charset=\"utf-8\"><title>Rock Current Build Status</title><link rel="stylesheet" type="text/css" href="jenkins_style.css"></head><body>' > status/index.html
 
 echo "<p><b>This page shows the current build status of Rock</b></p>" >> status/index.html
 echo "<p><b>Ubuntu_LTS</b> is the most recent LTS Version<br><b>Ubuntu_current</b> the most recent version<br><br> In case Ubuntu_current is a LTS, Ubuntu_LTS is the older LTS (e.g. 12.04 and 14.04)</p>" >> status/index.html

@@ -49,6 +49,5 @@ end
 #table.xpath('//@class').remove
 table.xpath('//@href').remove
 
-puts '<link rel="stylesheet" type="text/css" href="jenkins_style.css">'
 puts table.to_html.gsub("&nbsp;", "").gsub("&Acirc;","")
 
