@@ -31,12 +31,12 @@ table.xpath('//th').each do |th|
 	th.content = "Status"
     end
 
-    if th.content ==  "%"
-	th.content = "% success"
-    end
-    if th.content ==  "Description"
-	th.content = ""
-    end
+#    if th.content ==  "%"
+#	th.content = "% success"
+#    end
+#    if th.content ==  "Description"
+#	th.content = ""
+#    end
 end
 table.xpath('//td').each do |td|
     if td.content ==  '&Acirc;&nbsp;'
