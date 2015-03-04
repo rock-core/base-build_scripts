@@ -17,9 +17,9 @@ table.xpath('//img').each do |img|
     tmp = File.basename(img["src"])
     img["src"] = tmp
 
-    if img["src"].include? "health"
-	img.remove
-    end
+#    if img["src"].include? "health"
+#	img.remove
+#    end
     if img["src"]=="clock.png"
 	img.remove
     end
@@ -46,8 +46,9 @@ end
 
 
 
-table.xpath('//@class').remove
+#table.xpath('//@class').remove
 table.xpath('//@href').remove
 
+puts '<link rel="stylesheet" type="text/css" href="jenkins_style.css">'
 puts table.to_html.gsub("&nbsp;", "").gsub("&Acirc;","")
 

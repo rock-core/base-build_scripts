@@ -47,7 +47,7 @@ end
 #table.css('#model-link inside').each do |link|
 #    link.remove
 #end
-table.xpath('//@class').remove
+#table.xpath('//@class').remove
 
 
 #copy log files
@@ -73,4 +73,5 @@ table.css('a').each do |a|
     end
 end
 
+puts '<link rel="stylesheet" type="text/css" href="jenkins_style.css">'
 puts table.to_html.gsub("&nbsp;", "").gsub("&Acirc;","")
