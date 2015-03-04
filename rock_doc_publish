@@ -20,11 +20,23 @@ if test -d $TARGET_DIR; then
     rsync -r --delete $TARGET_DIR/ $TARGET_DIR-old/
 fi
 
+if test -n "$TEMPLATE_GIT"; then
+    if test -d $TEMPLATE_DIR then
+        $(cd $TEMPLATE_DIR;
+          git remote update;
+          git reset --hard origin/master;
+         )
+    else
+        git clone $TEMPLATE_GIT $TEMPLATE_DIR
+    fi
+fi
+
 if test -n "$TEMPLATE_DIR"; then
     rsync -r --exclude '.git' $TEMPLATE_DIR $TARGET_DIR
 else
     mkdir $TARGET_DIR
 fi
+
 
 for source in "$@"; do
     source_dir=`echo $source | sed 's/:.*//'`
