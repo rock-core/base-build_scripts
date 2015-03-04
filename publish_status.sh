@@ -16,17 +16,16 @@ echo "<p><b>Ubuntu_LTS</b> is the most recent LTS Version<br><b>Ubuntu_current</
 DATE=$(date)
 echo "last update: $DATE<br>" >> status/index.html
 
-ruby ./extract_overview.rb > "status/overview.html"
+#ruby ./extract_overview.rb > "status/overview.html"
 echo "<h1>Overview</h1>" >> status/index.html
 #echo "<iframe src=\"overview.html\" width=\"1300\" height=\"300\"></iframe>" >> status/index.html
-cat status/overview.html >> status/index.html
+ruby ./extract_overview.rb >> status/index.html
 
 for build in $@; do
 	echo "getting status of $build"
 	echo "<h1>$build</h1>" >> status/index.html
 	#echo "<iframe src=\"$build.html\" width=\"440\" height=\"120\"></iframe>" >> status/index.html
-	cat status/$build.html >> status/index.html
-	ruby ./extract_status.rb $build > "status/$build.html"
+	ruby ./extract_status.rb $build >> status/index.html
 done
 
 echo "</body></html>" >> status/index.html
