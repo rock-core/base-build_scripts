@@ -18,8 +18,22 @@ echo "last update: $DATE<br>" >> status/index.html
 
 #ruby ./extract_overview.rb > "status/overview.html"
 echo "<h1>Overview</h1>" >> status/index.html
+
 #echo "<iframe src=\"overview.html\" width=\"1300\" height=\"300\"></iframe>" >> status/index.html
 ruby ./extract_overview.rb >> status/index.html
+
+#get rss feeds
+echo '<a href="rssAll"><img border="0" width="16" height="16" src="atom.gif" alt="Feed"></img>RSS for all</a><br>' >> status/index.html
+echo '<a href="rssFailed"><img border="0" width="16" height="16" src="atom.gif" alt="Feed"></img>RSS for failures</a><br>' >> status/index.html
+echo '<a href="rssLatest"><img border="0" width="16" height="16" src="atom.gif" alt="Feed"></img>RSS for just latest builds</a><br>' >> status/index.html
+(
+cd status
+curl http://buildsrv01:8080/view/Rock/rssLatest > rssLatest
+curl http://buildsrv01:8080/view/Rock/rssFailed > rssFailed
+curl http://buildsrv01:8080/view/Rock/rssAll > rssAll
+)
+
+#status for specific projects
 
 for build in $@; do
 	echo "getting status of $build"
