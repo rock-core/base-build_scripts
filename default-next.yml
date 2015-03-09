@@ -1,8 +1,8 @@
 GITHUB: git
 GITHUB_ROOT: git://github.com
 GITHUB_PUSH_ROOT: "git@github.com:"
-GITORIOUS: git
-GITORIOUS_ROOT: git://gitorious.org
+GITORIOUS: http
+GITORIOUS_ROOT: https://gitorious.org
 GITORIOUS_PUSH_ROOT: "git@gitorious.org:"
 SPACEGIT: ssh
 SPACEGIT_ROOT: "git@git.hb.dfki.de:"
