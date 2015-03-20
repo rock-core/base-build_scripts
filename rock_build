@@ -230,6 +230,7 @@ fi
 
 if test "x$DOCGEN" = "xtrue"; then
     $GEM install hoe coderay rdoc --no-rdoc --no-ri
+    $GEM install cmdparse -v 2.0.6 --no-rdoc --no-ri
     $GEM install webgen -v 0.5.17 --no-rdoc --no-ri
 
     echo "Starting documentation generation at `date`"
