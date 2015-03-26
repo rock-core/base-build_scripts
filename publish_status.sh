@@ -33,9 +33,9 @@ curl http://buildsrv01:8080/view/Rock/rssFailed > rssFailed
 curl http://buildsrv01:8080/view/Rock/rssAll > rssAll
 
 #temp for testing package_list
-curl https://github.com/planthaber/planthaber.github.io/raw/master/rock-package-list/JSON.js > JSON.js
-curl https://github.com/planthaber/planthaber.github.io/raw/master/rock-package-list/jquery-2.1.3.min.js > jquery-2.1.3.min.js
-curl https://github.com/planthaber/planthaber.github.io/raw/master/rock-package-list/packages.html > packages.html
+curl https://raw.githubusercontent.com/planthaber/planthaber.github.io/master/rock-package-list/JSON.js > JSON.js
+curl https://raw.githubusercontent.com/planthaber/planthaber.github.io/master/rock-package-list/jquery-2.1.3.min.js > jquery-2.1.3.min.js
+curl https://raw.githubusercontent.com/planthaber/planthaber.github.io/master/rock-package-list/packages.html > packages.html
 )
 
 #status for specific projects
