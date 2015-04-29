@@ -33,7 +33,7 @@ if test -n "$TEMPLATE_GIT"; then
 fi
 
 if test -n "$TEMPLATE_DIR"; then
-    rsync -r --exclude '.git' $TEMPLATE_DIR $TARGET_DIR
+    rsync -r --exclude '.git' $TEMPLATE_DIR/* $TARGET_DIR
 else
     mkdir $TARGET_DIR
 fi
