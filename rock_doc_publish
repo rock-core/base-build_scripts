@@ -39,7 +39,7 @@ else
     mkdir $TARGET_DIR
 fi
 
-echo "RewriteRule ^/$RELEASE(.*) /release/\$1" >> $TARGET_DIR/.htaccess
+echo "RewriteRule ^/$RELEASE(.*) /release/\$1 [R=302]" >> $TARGET_DIR/.htaccess
 
 #other exceptions from forwarding, the release sting is not handled twice
 echo "RewriteCond %{REQUEST_URI} !^/google" >> $TARGET_DIR/.htaccess
@@ -53,7 +53,7 @@ for source in "$@"; do
 done
 
 #all on top level goes to release
-echo "RewriteRule ^(.*)   /release/\$1" >> $TARGET_DIR/.htaccess
+echo "RewriteRule ^(.*)   /release/\$1  [R=302]" >> $TARGET_DIR/.htaccess
 
 for source in "$@"; do
     source_dir=`echo $source | sed 's/:.*//'`
