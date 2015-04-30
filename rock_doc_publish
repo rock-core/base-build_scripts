@@ -41,6 +41,13 @@ fi
 
 echo "RewriteRule ^/$RELEASE(.*) /release/\$1" >> $TARGET_DIR/.htaccess
 
+#other exceptions from forwarding, the release sting is not handled twice
+echo "RewriteCond %{REQUEST_URI} !^/google" >> $TARGET_DIR/.htaccess
+echo "RewriteCond %{REQUEST_URI} !^/archives" >> $TARGET_DIR/.htaccess
+echo "RewriteCond %{REQUEST_URI} !^/status" >> $TARGET_DIR/.htaccess
+echo "RewriteCond %{REQUEST_URI} !^/autoproj_bootstrap" >> $TARGET_DIR/.htaccess
+
+
 for source in "$@"; do
     source_dir=`echo $source | sed 's/:.*//'`
     target_dir=`echo $source | sed 's/.*://'`
@@ -61,9 +68,15 @@ for source in "$@"; do
     # Extract documentation and api from each flavor to our 'export' 
     # directory 
     rsync -r --delete $source_path/ $TARGET_DIR/$target_dir/
+    
+    echo "RewriteCond %{REQUEST_URI} !^/($target_dir)" >> $TARGET_DIR/.htaccess
+
     echo "RewriteRule ^$target_dir/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
     echo "RewriteRule ^$target_dir/autoproj_bootstrap-dev$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
 done
+
+#all on top level goes to release
+echo "RewriteRule ^(.*)   /release/$1" >> $TARGET_DIR/.htaccess
 
 # Fix permissions
 chmod u=rwX -R ./
