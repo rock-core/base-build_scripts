@@ -76,7 +76,7 @@ for source in "$@"; do
 done
 
 #all on top level goes to release
-echo "RewriteRule ^(.*)   /release/$1" >> $TARGET_DIR/.htaccess
+echo "RewriteRule ^(.*)   /release/\$1" >> $TARGET_DIR/.htaccess
 
 # Fix permissions
 chmod u=rwX -R ./
