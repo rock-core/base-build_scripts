@@ -42,14 +42,14 @@ fi
 echo "RewriteRule ^/$RELEASE(.*) /release/\$1 [R=302]" >> $TARGET_DIR/.htaccess
 
 #other exceptions from forwarding, the release sting is not handled twice
-echo "RewriteCond %{REQUEST_URI} !^/google" >> $TARGET_DIR/.htaccess
-echo "RewriteCond %{REQUEST_URI} !^/archives" >> $TARGET_DIR/.htaccess
-echo "RewriteCond %{REQUEST_URI} !^/status" >> $TARGET_DIR/.htaccess
-echo "RewriteCond %{REQUEST_URI} !^/autoproj_bootstrap" >> $TARGET_DIR/.htaccess
+echo "RewriteCond %{REQUEST_URI} !^/(google|archives|status|autoproj_bootstrap)" >> $TARGET_DIR/.htaccess
+#echo "RewriteCond %{REQUEST_URI} !^/archives" >> $TARGET_DIR/.htaccess
+#echo "RewriteCond %{REQUEST_URI} !^/status" >> $TARGET_DIR/.htaccess
+#echo "RewriteCond %{REQUEST_URI} !^/autoproj_bootstrap" >> $TARGET_DIR/.htaccess
 
 for source in "$@"; do
-    target_dir=`echo $source | sed 's/.*://'`
-    echo "RewriteCond %{REQUEST_URI} !^/($target_dir)" >> $TARGET_DIR/.htaccess
+    source_dir=`echo $source | sed 's/:.*//'`
+    echo "RewriteCond %{REQUEST_URI} !^/$source_dir" >> $TARGET_DIR/.htaccess
 done
 
 #all on top level goes to release
