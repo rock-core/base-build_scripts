@@ -39,7 +39,7 @@ else
     mkdir $TARGET_DIR
 fi
 
-echo "RewriteRule ^/$RELEASE(.*) /release/\$1 [R=302]" >> $TARGET_DIR/.htaccess
+echo "RewriteRule ^$RELEASE(.*) /release/\$1 [R=302]" >> $TARGET_DIR/.htaccess
 
 #other exceptions from forwarding, the release sting is not handled twice
 echo "RewriteCond %{REQUEST_URI} !^/(google|archives|status|autoproj_bootstrap)" >> $TARGET_DIR/.htaccess
