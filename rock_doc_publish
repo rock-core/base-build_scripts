@@ -48,9 +48,11 @@ echo "RewriteCond %{REQUEST_URI} !^/(google|archives|status|autoproj_bootstrap)"
 #echo "RewriteCond %{REQUEST_URI} !^/autoproj_bootstrap" >> $TARGET_DIR/.htaccess
 
 for source in "$@"; do
-    source_dir=`echo $source | sed 's/:.*//'`
-    echo "RewriteCond %{REQUEST_URI} !^/$source_dir" >> $TARGET_DIR/.htaccess
+    target_dir=`echo $source | sed 's/.*://'`
+    echo "RewriteCond %{REQUEST_URI} !^/$target_dir" >> $TARGET_DIR/.htaccess
 done
+#when the release version is used, it should not be handled here, but above
+echo "RewriteCond %{REQUEST_URI} !^/$RELEASE" >> $TARGET_DIR/.htaccess
 
 #all on top level goes to release
 echo "RewriteRule ^(.*)   /release/\$1  [R=302]" >> $TARGET_DIR/.htaccess
