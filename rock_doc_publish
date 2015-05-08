@@ -6,7 +6,6 @@
 #   SOURCE_DIR: the directory in which the documentation has been generated
 #   TARGET_DIR: the directory in which the documentation should be generated
 #   TEMPLATE_DIR: the template directory for the whole published website
-#   RELEASE: sets the build name rock-roboticd-org/release is forwarded to
 #
 # It should be provided a set of arguments of the form
 #   source_dir:target_dir
@@ -33,13 +32,17 @@ if test -n "$TEMPLATE_GIT"; then
     fi
 fi
 
-if test -n "$TEMPLATE_DIR"; then
-    rsync -r --exclude '.git' $TEMPLATE_DIR/ $TARGET_DIR
-else
+if [ ! -d $TARGET_DIR ]
+then
     mkdir $TARGET_DIR
 fi
 
-echo "RewriteRule ^$RELEASE(.*) /release/\$1 [R=302]" >> $TARGET_DIR/.htaccess
+if test -n "$TEMPLATE_DIR"; then
+    cp $TEMPLATE_DIR/*.html $TARGET_DIR
+fi
+
+cp template/.htaccess $TARGET_DIR
+
 
 #other exceptions from forwarding, the release sting is not handled twice
 echo "RewriteCond %{REQUEST_URI} !^/(google|archives|status|autoproj_bootstrap)" >> $TARGET_DIR/.htaccess
@@ -51,11 +54,9 @@ for source in "$@"; do
     target_dir=`echo $source | sed 's/.*://'`
     echo "RewriteCond %{REQUEST_URI} !^/$target_dir" >> $TARGET_DIR/.htaccess
 done
-#when the release version is used, it should not be handled here, but above
-echo "RewriteCond %{REQUEST_URI} !^/$RELEASE" >> $TARGET_DIR/.htaccess
 
-#all on top level goes to release
-echo "RewriteRule ^(.*)   /release/\$1  [R=302]" >> $TARGET_DIR/.htaccess
+#all on top level goes to stable 
+echo "RewriteRule ^(.*)   /stable/\$1  [R=302]" >> $TARGET_DIR/.htaccess
 
 for source in "$@"; do
     source_dir=`echo $source | sed 's/:.*//'`

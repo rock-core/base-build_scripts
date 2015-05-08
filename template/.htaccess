@@ -1,0 +1,37 @@
+RewriteEngine on
+
+#static redirect for http://rock-robotics.org/autoproj_bootstrap (overrides previous rules)
+RewriteRule ^autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]
+
+# Rules to have backward compatibility with existing links
+RewriteRule ^news  http://blog.rock-robotics.org [L,R=301]
+RewriteRule ^package_directory/packages(.*)  /stable/pkg/ [L,R=301]
+RewriteRule ^package_directory/orogen_types(.*)  /stable/types/ [L,R=301]
+RewriteRule ^package_directory/orogen_tasks(.*)  /stable/tasks/ [L,R=301]
+RewriteRule ^package_directory/osdeps(.*)  /stable/osdeps/ [L,R=301]
+RewriteRule ^package_sets(.*)       /stable/sets/ [L,R=301]
+RewriteRule ^stream_aligner  /stable/documentation/data_processing/stream_aligner.html [L,R=301]
+RewriteRule ^runtime$         /stable/documentation/runtime [L,R=301]
+RewriteRule ^runtime/(.*)     /stable/documentation/runtime/$1 [L,R=301]
+RewriteRule ^startup$         /stable/documentation/about [L,R=301]
+RewriteRule ^startup/(.*)     /stable/documentation/about/$1 [L,R=301]
+RewriteRule ^orogen$         /stable/documentation/orogen [L,R=301]
+RewriteRule ^orogen/(.*)     /stable/documentation/orogen/$1 [L,R=301]
+RewriteRule ^autoproj/autoproj/adding_packages.html$       /stable/documentation/autoproj/adding_packages.html [L,R=301]
+RewriteRule ^autoproj$       /stable/documentation/autoproj [L,R=301]
+RewriteRule ^autoproj/(.*)   /stable/documentation/autoproj/$1 [L,R=301]
+RewriteRule ^data_analysis$   /stable/documentation/data_analysis [L,R=301]
+RewriteRule ^data_analysis/(.*)$   /stable/documentation/data_analysis/$1 [L,R=301]
+RewriteRule ^documentation/gui.html$       /stable/documentation/graphical_user_interface [L,R=301]
+RewriteRule ^documentation/tutorials/530_nameservice.html$   /stable/documentation/advanced_tutorials/700_nameservice.html [L,R=301]
+
+
+#generated entries by build_scripts/rock_doc_publish
+
+
+
+
+
+
+
+
