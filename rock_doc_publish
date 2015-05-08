@@ -20,28 +20,12 @@ if test -d $TARGET_DIR; then
     rsync -r --delete $TARGET_DIR/ $TARGET_DIR-old/
 fi
 
-if test -n "$TEMPLATE_GIT"; then
-    if test -d $TEMPLATE_DIR; then
-         (
-          cd $TEMPLATE_DIR;
-          git remote update;
-          git reset --hard origin/master;
-         )
-    else
-        git clone $TEMPLATE_GIT $TEMPLATE_DIR
-    fi
-fi
-
 if [ ! -d $TARGET_DIR ]
 then
     mkdir $TARGET_DIR
 fi
 
-if test -n "$TEMPLATE_DIR"; then
-    cp $TEMPLATE_DIR/*.html $TARGET_DIR
-fi
-
-cp template/.htaccess $TARGET_DIR
+cp $BULD_SCRIPT_DIR/template/* $TARGET_DIR
 
 
 #other exceptions from forwarding, the release sting is not handled twice
