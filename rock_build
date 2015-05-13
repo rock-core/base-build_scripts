@@ -216,10 +216,10 @@ echo "Finished preparing, starting build at `date` with $RUBY"
   autoproj --no-color --no-progress update $UPDATEFLAGS
   if test "x$do_doc_only" = "x0"; then
     if test "x$FORCE_DOCGEN" = "0x1"; then
-        autoproj --no-color --no-progress build $BUILDFLAGS || true
+	BUILD_STATUS=$(autoproj --no-color --no-progress build $BUILDFLAGS)
     else
         autoproj --no-color --no-progress build $BUILDFLAGS
-    end
+    fi
   fi
   touch successful
 )
@@ -307,4 +307,10 @@ if test "x$CLEAN_IF_SUCCESSFUL" = "xtrue"; then
     fi
 fi
 echo "Done at `date`"
+
+if test "x$FORCE_DOCGEN" = "0x1"; then
+    exit $BUILD_STATUS
+fi
+
+
 
