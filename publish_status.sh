@@ -4,6 +4,8 @@
 #
 # Its behaviour is modified by the following environment variables:
 #   TARGET_URL: the url to copy to
+#   UPLOAD_USER: the user name to use to upload 
+#   UPLOAD_PASSWD: the password (may be "$(cat /var/lib/jenkins/upload_passwd)" )
 
 #BUILDS="rock-basic rock"
 
@@ -51,4 +53,9 @@ echo "</body></html>" >> status/index.html
 
 echo "<br>last update: $DATE" >> status/index.html
 
-(lftp -c "open $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete ./status www/" )
+(lftp -c "open -u $UPLOAD_USER,$UPLOAD_PASSWD  $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete ./status www/" )
+
+
+
+
+
