@@ -6,7 +6,8 @@
 #   SOURCE_DIR: the directory in which the documentation has been generated
 #   TARGET_DIR: the directory in which the documentation should be generated
 #   TEMPLATE_DIR: the template directory for the whole published website
-#   RELEASE: sets the build name rock-roboticd-org/release is forwarded to
+#   UPLOAD_USER: the user name to use to upload 
+#   UPLOAD_PASSWD: the password (may be "$(cat /var/lib/jenkins/upload_passwd)" )
 #
 # It should be provided a set of arguments of the form
 #   source_dir:target_dir
@@ -88,6 +89,6 @@ chmod u=rwX -R ./
 chmod go=rX -R ./
 
 # Copy the main documentation first
-( cd www; lftp -c "open $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete --exclude status/ ./ www/" )
+( cd www; lftp -c "open -u $UPLOAD_USER,$UPLOAD_PASSWD $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete --exclude status/ ./ www/" )
 #( cd www; lftp -c "open $TARGET_URL && mirror -R --delete ./ www/" )
 
