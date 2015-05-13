@@ -41,6 +41,7 @@
 #     (defaults to 'all')
 #   PARALLEL: set parallel build level to the value of the variable
 #   KEEP_GOING: if set execute autoproj with -k option
+#   FORCE_DOCGEN: generate docs, even when the build fails
 
 echo "$0 started at `date`"
 
@@ -214,7 +215,11 @@ echo "Finished preparing, starting build at `date` with $RUBY"
   
   autoproj --no-color --no-progress update $UPDATEFLAGS
   if test "x$do_doc_only" = "x0"; then
-    autoproj --no-color --no-progress build $BUILDFLAGS
+    if test "x$FORCE_DOCGEN" = "0x1"; then
+        autoproj --no-color --no-progress build $BUILDFLAGS || true
+    else
+        autoproj --no-color --no-progress build $BUILDFLAGS
+    end
   fi
   touch successful
 )
