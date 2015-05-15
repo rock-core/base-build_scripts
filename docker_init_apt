@@ -23,3 +23,8 @@ cat /root/.ssh/id_rsa.pub
 git config --global user.email "ag-framework@dfki.de"
 git config --global user.name "Buildserver"
 
+#add host key to known_hosts
+ssh-keyscan -H git.hb.dfki.de >> ~/.ssh/known_hosts
+
+
+
