@@ -1,7 +1,7 @@
 apt-get update
 
 #install build essentials
-apt-get install lsb-release default-jre wget ruby openssh-client git icecc ccache
+apt-get install lsb-release default-jre wget ruby openssh-client git icecc ccache sudo
 
 
 #install locales
