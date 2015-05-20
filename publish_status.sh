@@ -4,6 +4,8 @@
 #
 # Its behaviour is modified by the following environment variables:
 #   TARGET_URL: the url to copy to
+#   UPLOAD_USER: the user name to use to upload 
+#   UPLOAD_PASSWD: the password (may be "$(cat /var/lib/jenkins/upload_passwd)" )
 
 #BUILDS="rock-basic rock"
 
@@ -31,6 +33,11 @@ cd status
 curl http://buildsrv01:8080/view/Rock/rssLatest > rssLatest
 curl http://buildsrv01:8080/view/Rock/rssFailed > rssFailed
 curl http://buildsrv01:8080/view/Rock/rssAll > rssAll
+
+#temp for testing package_list
+curl https://raw.githubusercontent.com/planthaber/planthaber.github.io/master/rock-package-list/JSON.js > JSON.js
+curl https://raw.githubusercontent.com/planthaber/planthaber.github.io/master/rock-package-list/jquery-2.1.3.min.js > jquery-2.1.3.min.js
+curl https://raw.githubusercontent.com/planthaber/planthaber.github.io/master/rock-package-list/packages.html > packages.html
 )
 
 #status for specific projects
@@ -46,4 +53,9 @@ echo "</body></html>" >> status/index.html
 
 echo "<br>last update: $DATE" >> status/index.html
 
-(lftp -c "open $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete ./status www/" )
+(lftp -c "open -u $UPLOAD_USER,$UPLOAD_PASSWD  $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete ./status www/" )
+
+
+
+
+

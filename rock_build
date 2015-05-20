@@ -41,6 +41,7 @@
 #     (defaults to 'all')
 #   PARALLEL: set parallel build level to the value of the variable
 #   KEEP_GOING: if set execute autoproj with -k option
+#   FORCE_DOCGEN: generate docs, even when the build fails
 
 echo "$0 started at `date`"
 
@@ -195,11 +196,13 @@ fi
 
 #additional build flags
 BUILDFLAGS=""
+UPDATEFLAGS=""
 if ! test -z "$PARALLEL"; then
     BUILDFLAGS+=" -p$PARALLEL"
 fi
 if test "$KEEP_GOING" = "true" ; then
     BUILDFLAGS+=" -k"
+    UPDATEFLAGS+=" -k"
 fi
 if test "x$ALL_KNOWN_PACKAGES" = "xtrue" ; then
     BUILDFLAGS+=" --all-known-packages"
@@ -229,12 +232,15 @@ echo "Finished preparing, starting build at `date` with $RUBY"
   cd dev
   . ./env.sh
   cp $configfile ./autoproj/config.yml
-  
-  autoproj --no-color --no-progress update
-  if test "x$do_doc_only" = "x0"; then
+    
+  if test "x$FORCE_DOCGEN" = "0x1"; then  
+    UPDATE_STATUS=$(autoproj --no-color --no-progress update $UPDATEFLAGS)
+    BUILD_STATUS=$(autoproj --no-color --no-progress build $BUILDFLAGS)	
+  else
+    autoproj --no-color --no-progress update $UPDATEFLAGS
     autoproj --no-color --no-progress build $BUILDFLAGS
+    touch successful
   fi
-  touch successful
 )
 
 # Delete the stats file if we did not just do a full build
@@ -248,6 +254,7 @@ fi
 
 if test "x$DOCGEN" = "xtrue"; then
     $GEM install hoe coderay rdoc --no-rdoc --no-ri
+    $GEM install cmdparse -v 2.0.6 --no-rdoc --no-ri
     $GEM install webgen -v 0.5.17 --no-rdoc --no-ri
 
     echo "Starting documentation generation at `date`"
@@ -304,6 +311,19 @@ fi
 mkdir -p logs
 cp -r dev/install/log logs/`date +%F-%H%M%S`
 
+
+if test "x$FORCE_DOCGEN" = "0x1"; then
+  
+    if test "x$UPDATE_STATUS" != "0x0"; then
+	exit $UPDATE_STATUS
+    fi
+    if test "x$BUILD_STATUS" != "0x0"; then
+	exit $UPDATE_STATUS
+    fi
+    touch successful
+    exit $BUILD_STATUS
+fi
+
 if test "x$CLEAN_IF_SUCCESSFUL" = "xtrue"; then
     touch dev/cleaned
 
@@ -319,4 +339,9 @@ if test "x$CLEAN_IF_SUCCESSFUL" = "xtrue"; then
     fi
 fi
 echo "Done at `date`"
+
+
+
+
+
 

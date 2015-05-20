@@ -6,6 +6,8 @@
 #   SOURCE_DIR: the directory in which the documentation has been generated
 #   TARGET_DIR: the directory in which the documentation should be generated
 #   TEMPLATE_DIR: the template directory for the whole published website
+#   UPLOAD_USER: the user name to use to upload 
+#   UPLOAD_PASSWD: the password (may be "$(cat /var/lib/jenkins/upload_passwd)" )
 #
 # It should be provided a set of arguments of the form
 #   source_dir:target_dir
@@ -20,24 +22,27 @@ if test -d $TARGET_DIR; then
     rsync -r --delete $TARGET_DIR/ $TARGET_DIR-old/
 fi
 
-if test -n "$TEMPLATE_GIT"; then
-    if test -d $TEMPLATE_DIR; then
-         (
-          cd $TEMPLATE_DIR;
-          git remote update;
-          git reset --hard origin/master;
-         )
-    else
-        git clone $TEMPLATE_GIT $TEMPLATE_DIR
-    fi
-fi
-
-if test -n "$TEMPLATE_DIR"; then
-    rsync -r --exclude '.git' $TEMPLATE_DIR $TARGET_DIR
-else
+if [ ! -d $TARGET_DIR ]
+then
     mkdir $TARGET_DIR
 fi
 
+cp $BULD_SCRIPT_DIR/template/* $TARGET_DIR
+
+
+#other exceptions from forwarding, the release sting is not handled twice
+echo "RewriteCond %{REQUEST_URI} !^/(google|archives|status|autoproj_bootstrap)" >> $TARGET_DIR/.htaccess
+#echo "RewriteCond %{REQUEST_URI} !^/archives" >> $TARGET_DIR/.htaccess
+#echo "RewriteCond %{REQUEST_URI} !^/status" >> $TARGET_DIR/.htaccess
+#echo "RewriteCond %{REQUEST_URI} !^/autoproj_bootstrap" >> $TARGET_DIR/.htaccess
+
+for source in "$@"; do
+    target_dir=`echo $source | sed 's/.*://'`
+    echo "RewriteCond %{REQUEST_URI} !^/$target_dir" >> $TARGET_DIR/.htaccess
+done
+
+#all on top level goes to stable 
+echo "RewriteRule ^(.*)   /stable/\$1  [R=302]" >> $TARGET_DIR/.htaccess
 
 for source in "$@"; do
     source_dir=`echo $source | sed 's/:.*//'`
@@ -63,11 +68,13 @@ for source in "$@"; do
     echo "RewriteRule ^$target_dir/autoproj_bootstrap-dev$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
 done
 
+
+
 # Fix permissions
 chmod u=rwX -R ./
 chmod go=rX -R ./
 
 # Copy the main documentation first
-( cd www; lftp -c "open $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete --exclude status/ ./ www/" )
+( cd www; lftp -c "open -u $UPLOAD_USER,$UPLOAD_PASSWD $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete --exclude status/ ./ www/" )
 #( cd www; lftp -c "open $TARGET_URL && mirror -R --delete ./ www/" )
 
