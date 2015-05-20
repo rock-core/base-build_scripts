@@ -206,6 +206,7 @@ if test "$KEEP_GOING" = "true" ; then
 fi
 if test "x$ALL_KNOWN_PACKAGES" = "xtrue" ; then
     BUILDFLAGS+=" --all-known-packages"
+    UPDATEFLAGS+=" --all-known-packages"
 fi
 
 
