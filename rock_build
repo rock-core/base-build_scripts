@@ -201,6 +201,26 @@ fi
 if test "$KEEP_GOING" = "true" ; then
     BUILDFLAGS+=" -k"
 fi
+if test "x$ALL_KNOWN_PACKAGES" = "xtrue" ; then
+    BUILDFLAGS+=" --all-known-packages"
+fi
+
+
+
+#Check if this build should first do a local autoproj installation (useful for testing autoproj itself without releasing)
+if test "x$LOCAL_AUTOPROJ" = "xtrue"; then
+PREV_DIR = `pwd`
+# We can finally copy the requested config file and build
+( set -ex
+  cd dev
+  . ./env.sh
+  cp $configfile ./autoproj/config.yml
+  autoproj --no-color --no-progress build tools/autoproj
+ )
+cd $PREV_DIR
+fi
+
+
 
 echo "Finished preparing, starting build at `date` with $RUBY"
 
