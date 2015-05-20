@@ -3,6 +3,7 @@
 # Script used in a separate jenkins job to update the scripts on master
 
 cd $JENKINS_HOME/build_scripts
+git remote set-url origin https://github.com/rock-core/base-build_scripts
 git remote update
 git reset --hard origin/master
 
