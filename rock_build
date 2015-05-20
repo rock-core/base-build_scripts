@@ -218,6 +218,7 @@ PREV_DIR=`pwd`
   cd dev
   . ./env.sh
   cp $configfile ./autoproj/config.yml
+  autoproj --no-color --no-progress update tools/autoproj
   autoproj --no-color --no-progress build tools/autoproj
  )
 cd $PREV_DIR
