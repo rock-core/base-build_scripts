@@ -212,7 +212,7 @@ fi
 
 #Check if this build should first do a local autoproj installation (useful for testing autoproj itself without releasing)
 if test "x$LOCAL_AUTOPROJ" = "xtrue"; then
-PREV_DIR = `pwd`
+PREV_DIR=`pwd`
 # We can finally copy the requested config file and build
 ( set -ex
   cd dev
