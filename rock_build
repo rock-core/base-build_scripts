@@ -260,8 +260,11 @@ PREV_DIR=`pwd`
   cd dev
   . ./env.sh
   cp $configfile ./autoproj/config.yml
-  autoproj --no-color --no-progress update tools/autoproj
-  autoproj --no-color --no-progress build tools/autoproj
+  if [ -n "$USE_OCL" ]; then
+      sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./autoproj/config.yml
+  fi
+  autoproj --no-color --no-progress update tools/autoproj tools/autobuild
+  autoproj --no-color --no-progress build tools/autoproj tools/autobuild
  )
 cd $PREV_DIR
 fi
