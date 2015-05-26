@@ -5,7 +5,6 @@
 # Its behaviour is modified by the following environment variables:
 #   SOURCE_DIR: the directory in which the documentation has been generated
 #   TARGET_DIR: the directory in which the documentation should be generated
-#   TEMPLATE_DIR: the template directory for the whole published website
 #   UPLOAD_USER: the user name to use to upload 
 #   UPLOAD_PASSWD: the password (may be "$(cat /var/lib/jenkins/upload_passwd)" )
 #
@@ -29,21 +28,6 @@ fi
 
 cp $BULD_SCRIPT_DIR/template/* $TARGET_DIR
 
-
-#other exceptions from forwarding, the release sting is not handled twice
-echo "RewriteCond %{REQUEST_URI} !^/(google|archives|status|autoproj_bootstrap)" >> $TARGET_DIR/.htaccess
-#echo "RewriteCond %{REQUEST_URI} !^/archives" >> $TARGET_DIR/.htaccess
-#echo "RewriteCond %{REQUEST_URI} !^/status" >> $TARGET_DIR/.htaccess
-#echo "RewriteCond %{REQUEST_URI} !^/autoproj_bootstrap" >> $TARGET_DIR/.htaccess
-
-for source in "$@"; do
-    target_dir=`echo $source | sed 's/.*://'`
-    echo "RewriteCond %{REQUEST_URI} !^/$target_dir" >> $TARGET_DIR/.htaccess
-done
-
-#all on top level goes to stable 
-echo "RewriteRule ^(.*)   /stable/\$1  [R=302]" >> $TARGET_DIR/.htaccess
-
 for source in "$@"; do
     source_dir=`echo $source | sed 's/:.*//'`
     target_dir=`echo $source | sed 's/.*://'`
@@ -64,8 +48,6 @@ for source in "$@"; do
     # Extract documentation and api from each flavor to our 'export' 
     # directory 
     rsync -r --delete $source_path/ $TARGET_DIR/$target_dir/
-    echo "RewriteRule ^$target_dir/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
-    echo "RewriteRule ^$target_dir/autoproj_bootstrap-dev$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]" >> $TARGET_DIR/.htaccess
 done
 
 
