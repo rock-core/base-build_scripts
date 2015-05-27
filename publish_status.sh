@@ -5,9 +5,17 @@
 # Its behaviour is modified by the following environment variables:
 #   TARGET_URL: the url to copy to
 #   UPLOAD_USER: the user name to use to upload 
-#   UPLOAD_PASSWD: the password (may be "$(cat /var/lib/jenkins/upload_passwd)" )
 
 #BUILDS="rock-basic rock"
+
+set +x
+UPLOAD_PASSWD=`cat /var/lib/jenkins/upload_passwd`
+
+if [ -x "$UPLOAD_PASSWD" ]; then
+    echo "Could not extract upload password, please check if it is set correctly"
+    echo $UPLOAD_PASSWD
+fi
+set -ex
 
 echo '<html lang=\"en\"><head><meta charset=\"utf-8\"><title>Rock Current Build Status</title><link rel="stylesheet" type="text/css" href="jenkins_style.css"></head><body>' > status/index.html
 
