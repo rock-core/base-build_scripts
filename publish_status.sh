@@ -61,8 +61,11 @@ echo "</body></html>" >> status/index.html
 
 echo "<br>last update: $DATE" >> status/index.html
 
+set +x #hide output it would contain the password
+echo "Starting upload..."
 (lftp -c "open -u $UPLOAD_USER,$UPLOAD_PASSWD  $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete ./status www/" )
-
+echo "...upload finished"
+set -x #reenable output
 
 
 

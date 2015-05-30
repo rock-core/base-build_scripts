@@ -20,7 +20,6 @@ UPLOAD_PASSWD=`cat /var/lib/jenkins/upload_passwd`
 
 if [ -x "$UPLOAD_PASSWD" ]; then
     echo "Could not extract upload password, please check if it is set correctly"
-    echo $UPLOAD_PASSWD
 fi
 
 set -ex
@@ -72,7 +71,11 @@ done
 chmod u=rwX -R ./
 chmod go=rX -R ./
 
+echo "Doing Upload"
 # Copy the main documentation first
+set +x #hide output it would contain the password
 ( cd www; lftp -c "open -u $UPLOAD_USER,$UPLOAD_PASSWD $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete --exclude status/ ./ www/" )
+set -x #reenable output
+echo "Upload Finished"
 #( cd www; lftp -c "open $TARGET_URL && mirror -R --delete ./ www/" )
 
