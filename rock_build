@@ -43,6 +43,7 @@
 #   KEEP_GOING: if set execute autoproj with -k option
 #   FORCE_DOCGEN: generate docs, even when the build fails
 #   DISPLAYED_ERROR_LINE_COUNT: number of error lines tha should be displayed, \'all\' is valid too
+#   STABLE_BUILD: mark all packages as stable (reduce build time and disk space, but might have side-effects) 
 
 echo "$0 started at `date`"
 
@@ -287,8 +288,9 @@ echo "Finished preparing, starting build at `date` with $RUBY"
     echo "Autobuild.displayed_error_line_count = $DISPLAYED_ERROR_LINE_COUNT" >> autoproj/init.rb
   fi
 
-  return 0
-
+  if [ "x$STABLE_BUILD" == "xtrue" ]; then
+    echo "Autoproj.manifest.each_autobuild_package { |pkg| pkg.add_tag 'stable' }" >> autoproj/init.rb
+  fi
 
   if test "x$FORCE_DOCGEN" = "0x1"; then  
     UPDATE_STATUS=$(autoproj --no-color --no-progress update $UPDATEFLAGS)
