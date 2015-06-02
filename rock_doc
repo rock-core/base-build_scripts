@@ -54,9 +54,9 @@ fi
 if test -n "$FLAVOR_NAME"; then
     export ROCK_DOC_FLAVORED=$FLAVOR_NAME:$AVAILABLE_FLAVORS
     if test "$FLAVOR_NAME" = "master"; then
-        directory_status="--status=master:next"
-    elif test "$FLAVOR_NAME" = "next"; then
-        directory_status="--status=next:stable"
+        directory_status="--status=master:stable"
+#    elif test "$FLAVOR_NAME" = "next"; then
+#        directory_status="--status=next:stable"
     fi
     ref_install_root=`echo $ref_install_root | sed "s/FLAVOR_NAME/$FLAVOR_NAME/"`
 else
