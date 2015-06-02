@@ -7,6 +7,7 @@
 #   TARGET_DIR: the directory in which the documentation should be generated
 #   UPLOAD_USER: the user name to use to upload 
 #   UPLOAD_PASSWD: the password (may be "$(cat /var/lib/jenkins/upload_passwd)" )
+#   LFTP_OPTIONS: Options that get passed to LFTP on the mirror call
 #
 # It should be provided a set of arguments of the form
 #   source_dir:target_dir
@@ -74,7 +75,7 @@ chmod go=rX -R ./
 echo "Doing Upload"
 # Copy the main documentation first
 set +x #hide output it would contain the password
-( cd www; lftp -c "open -u $UPLOAD_USER,$UPLOAD_PASSWD $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete --exclude status/ ./ www/" )
+( cd www; lftp -c "open -u $UPLOAD_USER,$UPLOAD_PASSWD $TARGET_URL && mirror -v -R --only-newer --parallel=8 --delete $LFTP_OPTIONS --exclude status/ ./ www/" )
 set -x #reenable output
 echo "Upload Finished"
 #( cd www; lftp -c "open $TARGET_URL && mirror -R --delete ./ www/" )
