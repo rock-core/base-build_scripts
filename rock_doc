@@ -22,6 +22,11 @@
 
 build_dir=$PWD
 
+if [ -z "$RUBY" ]; then
+    RUBY=ruby
+fi
+
+
 set -ex
 
 if ! test -f dev/doc-successful; then
@@ -83,7 +88,7 @@ echo "creating rock's main documentation in $tempdir/main"
 git clone $ref_install_root/base/doc $tempdir/main
 
 cd $build_dir/dev
-rock-directory-pages $directory_status "$tempdir/main/src" $build_dir/doc/api
+$RUBY rock-directory-pages $directory_status "$tempdir/main/src" $build_dir/doc/api
 
 cd $tempdir/main
 webgen --version
