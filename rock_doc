@@ -18,6 +18,7 @@
 #     appear). Note that the AVAILABLE_FLAVORS variable should be set as well
 #   AVAILABLE_FLAVORS: comma-separated list of flavors this project is part of.
 #     See the documentation of FLAVOR_NAME
+#   FORCE_GEM_INSTALL: set to true if needed gem installation should be foced (instead checked)
 #
 
 build_dir=$PWD
@@ -79,9 +80,15 @@ export PATH=$ref_install_root/base/admin_scripts/bin:$PATH
 export RUBYLIB=$ref_install_root/base/admin_scripts/lib:$RUBYLIB
 #export GEM_HOME=$ref_install_root/../.gems
 
-gem install webgen -v 0.5.17 --no-rdoc --no-ri
-gem install coderay --no-rdoc --no-ri
-gem install qtbindings --no-rdoc --no-ri
+if [ `gem list -i webgen -v 0.5.17` == "false" -o "x$FORCE_GEM_INSTALL" == "xtrue" ]; then
+    gem install webgen -v 0.5.17 --no-rdoc --no-ri
+fi
+if [ `gem list -i coderay` == "false" -o "x$FORCE_GEM_INSTALL" == "xtrue" ]; then
+    gem install coderay --no-rdoc --no-ri
+fi
+if [ `gem list -i qtbindings` == "false" -o "x$FORCE_GEM_INSTALL" == "xtrue" ]; then
+    gem install qtbindings --no-rdoc --no-ri
+fi
 
 tempdir=$(mktemp -d)
 echo "creating rock's main documentation in $tempdir/main"
