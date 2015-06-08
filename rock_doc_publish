@@ -52,7 +52,7 @@ for source in "$@"; do
 
     # Check whether there *is* documentation, and do a quick sanity check
     # - when we don't have a new documentation then fallback to the old one
-    if ! ( test -d $source_path/ && test -f $source_path/index.html && test -f $source_path/autoproj_bootstrap ); then
+    if ! ( test -d $source_path/ && test -f $source_path/index.html ); then
         if test -d $TARGET_DIR-old/$target_dir; then
             source_path=$TARGET_DIR-old/$target_dir
         else
