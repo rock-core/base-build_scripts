@@ -4,6 +4,10 @@ RewriteEngine on
 RewriteRule ^stable/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]
 RewriteRule ^autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]
 
+#static redireccty for current bootstrap scripts:
+RewriteRule ^stable/bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/rock-15.05/bootstrap.sh [R=301]
+RewriteRule ^bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/master/bootstrap.sh [R=301]
+
 # Rules to have backward compatibility with existing links
 RewriteRule ^news  http://blog.rock-robotics.org [L,R=301]
 RewriteRule ^package_directory/packages(.*)  /stable/pkg/ [L,R=301]
