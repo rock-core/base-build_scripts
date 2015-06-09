@@ -5,6 +5,7 @@
 # Its behaviour is modified by the following environment variables:
 #   TARGET_URL: the url to copy to
 #   UPLOAD_USER: the user name to use to upload 
+#   GITHUB_ACCESS_TOKEN: this needs to be set to get access to the github api
 
 #BUILDS="rock-basic rock"
 
@@ -20,6 +21,7 @@ set -ex
 echo '<html lang=\"en\"><head><meta charset=\"utf-8\"><title>Rock Current Build Status</title><link rel="stylesheet" type="text/css" href="jenkins_style.css"></head><body>' > status/index.html
 
 echo "<p><b>This page shows the current build status of Rock</b></p>" >> status/index.html
+echo "<p><b>Visit <a href=\"issues.html\> this page</a> to show all issues of rock</b></p>" >> status/index.html
 echo "<p><b>Ubuntu_LTS</b> is the most recent LTS Version<br><b>Ubuntu_current</b> the most recent version<br><br> In case Ubuntu_current is a LTS, Ubuntu_LTS is the older LTS (e.g. 12.04 and 14.04)</p>" >> status/index.html
 
 
@@ -31,6 +33,8 @@ echo "<h1>Overview</h1>" >> status/index.html
 
 #echo "<iframe src=\"overview.html\" width=\"1300\" height=\"300\"></iframe>" >> status/index.html
 ruby ./extract_overview.rb >> status/index.html
+#Generate issues page
+ruby ./generate_issue_page.rb || true #This is not critical for us
 
 #get rss feeds
 echo '<a href="rssAll"><img border="0" width="16" height="16" src="atom.gif" alt="Feed"></img>RSS for all</a><br>' >> status/index.html
