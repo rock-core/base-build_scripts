@@ -23,9 +23,10 @@ def get_repros_for_organization(names)
         STDOUT.puts "Getting #{name}"
         uri = URI.parse("https://api.github.com/orgs/#{name}/repos?#{@token}")
         pulls = JSON.parse(Net::HTTP.get(uri))
-        if pulls.class != Array 
+        if pulls.class != Array
             STDERR.puts "Failed to get #{name}"
             STDERR.puts pulls.class
+            STDERR.puts pulls
             return []
         end
         pulls.each do |k|
