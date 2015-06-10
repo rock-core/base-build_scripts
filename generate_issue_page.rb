@@ -63,7 +63,7 @@ File.open("status/issues.html","w") do |file|
     issues.each do |name,iss|
         file.puts "<h2> <a href=\"http://github.com/#{name}\">Package</a> #{name} has #{iss.size} <a href=\"http://github.com/#{name}/issues?q=is%3Aopen\">issues</a></h2>" if iss.size >0
         iss.each do |is|
-            file.puts "<a href=\"#{is['http_url']}\">Issue #{is['number']}</a> #{is['title']}<br/>"
+            file.puts "<a href=\"#{is['html_url']}\">Issue #{is['number']}</a> #{is['title']}<br/>"
         end
     end
     file.puts "This page got updated at #{Time.now}"
