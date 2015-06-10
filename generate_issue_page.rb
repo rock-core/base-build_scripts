@@ -3,11 +3,12 @@ require 'open-uri'
 require 'json'
 
 if ENV['GITHUB_ACCESS_TOKEN'].nil?
-File.open("status/issues.html","w") do |file|
-    str = "Could not find access token for github not generating this page at #{Time.now}"
-    file.puts str
-    STDERR.puts str
-    exit 0
+    File.open("status/issues.html","w") do |file|
+        str = "Could not find access token for github not generating this page at #{Time.now}"
+        file.puts str
+        STDERR.puts str
+        exit 0
+    end
 end
 
 #Pass as ENV the token for this script
