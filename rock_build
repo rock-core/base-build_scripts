@@ -43,7 +43,9 @@
 #   KEEP_GOING: if set execute autoproj with -k option
 #   FORCE_DOCGEN: generate docs, even when the build fails
 #   DISPLAYED_ERROR_LINE_COUNT: number of error lines tha should be displayed, \'all\' is valid too
-#   STABLE_BUILD: mark all packages as stable (reduce build time and disk space, but might have side-effects) 
+#   STABLE_BUILD: mark all packages as stable (reduce build time and disk space, but might have side-effects)
+#   BUILD_TESTS: Build the testsuites of all packages that have one (will be overriden to true if RUN_TESTS is set to true
+#   RUN_TESTS: Run all testsuites from packages that have one, if set to true it will override BUILD_TESTS to true
 
 echo "$0 started at `date`"
 
@@ -225,6 +227,10 @@ else
     do_doc_only=0
 fi
 
+if test "x$RUN_TESTS" = "xtrue"; then
+    BUILD_TESTS=true
+fi
+
 # If there are no autoproj/ directory, we need to start by bootstrapping
 if ! test -d dev/autoproj; then
     bootstrap_script_name=$(basename $BOOTSTRAP_URL)
@@ -265,6 +271,7 @@ PREV_DIR=`pwd`
   if [ -n "$USE_OCL" ]; then
       sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./autoproj/config.yml
   fi
+
   autoproj --no-color --no-progress update tools/autoproj tools/autobuild
   autoproj --no-color --no-progress build tools/autoproj tools/autobuild
  )
@@ -292,6 +299,12 @@ echo "Finished preparing, starting build at `date` with $RUBY"
     echo "Autoproj.manifest.each_autobuild_package { |pkg| pkg.add_tag 'stable' }" >> autoproj/init.rb
   fi
 
+  if test "x$BUILD_TESTS" = "xtrue"; then
+      autoproj test --enable
+  else
+      autoproj test --disable
+  fi
+
   if test "x$FORCE_DOCGEN" = "0x1"; then  
     UPDATE_STATUS=$(autoproj --no-color --no-progress update $UPDATEFLAGS)
     BUILD_STATUS=$(autoproj --no-color --no-progress build $BUILDFLAGS)	
@@ -310,6 +323,7 @@ if test "x$do_incremental" = "x1"; then
 else
     `dirname $0`/consolidate_autoproj_stats dev/install/log/stats.log > dev/install/log/consolidated-stats.log
 fi
+
 
 if test "x$DOCGEN" = "xtrue"; then
     $GEM install hoe coderay rdoc --no-rdoc --no-ri
@@ -336,7 +350,7 @@ if test "x$DOCGEN" = "xtrue"; then
       if which rock-pack-models > /dev/null 2>&1; then
           rock-pack-models install/doc/model-pack.tar.bz2
       fi
-      # HACK: remove slam/pcl as we're low on space on the website and it is a
+      # HACK: remove slam/pcl as we are low on space on the website and it is a
       # publicly available API documentation. We should have a way to specify a
       # link in the manifest.xml instead
       rm -rf install/doc/slam/pcl
@@ -363,6 +377,17 @@ if test "x$DOCGEN" = "xtrue"; then
     ) 2>&1 | tee docgen.txt
     echo "Finished documentation generation at `date`"
     touch dev/doc-successful
+fi
+
+if test "x$RUN_TESTS" = "xtrue"; then
+    echo "Starting  to run testsuite at `date`"
+    (
+      cd dev
+      . ./env.sh
+      autoproj test
+    ) 2>&1 | tee test-suite.te
+    echo "Finished to run the testsuite at `date`"
+    touch dev/test-successful
 fi
 
 # Save the logs AFTER documentation generation, so that they include docgen logs
