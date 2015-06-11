@@ -387,6 +387,16 @@ if test "x$RUN_TESTS" = "xtrue"; then
       autoproj test
     ) 2>&1 | tee test-suite.te
     echo "Finished to run the testsuite at `date`"
+
+    #Copy files of test results into their own folder
+    (
+    rm -fr testsuites || true
+    mkdir -p testsuites
+    cd testsuites
+    find ../dev/install/log/ -type f -name "*-test.log" | sed -e "p;s/[\/.]/_/g" | sed -r "s/.*_install_log_(.*)/\1/g" | xargs  -n2 cp
+    cd ..
+    ) || true
+
     touch dev/test-successful
 fi
 
