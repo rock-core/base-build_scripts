@@ -26,6 +26,10 @@ RewriteRule ^data_analysis/(.*)$   /stable/documentation/data_analysis/$1 [L,R=3
 RewriteRule ^documentation/gui.html$       /stable/documentation/graphical_user_interface [L,R=301]
 RewriteRule ^documentation/tutorials/530_nameservice.html$   /stable/documentation/advanced_tutorials/700_nameservice.html [L,R=301]
 
+RewriteCond %{REQUEST_URI} !^/(stable|master)
+RewriteCond %{REQUEST_URI} !^/google
+RewriteCond %{REQUEST_URI} !^/archives
+RewriteRule ^(.*)   /stable/$1 [R=302]
 
 #generated entries by build_scripts/rock_doc_publish
 
