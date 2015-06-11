@@ -33,6 +33,8 @@ RewriteRule ^documentation/tutorials/530_nameservice.html$   /stable/documentati
 RewriteCond %{REQUEST_URI} !^/(stable|master)
 RewriteCond %{REQUEST_URI} !^/google
 RewriteCond %{REQUEST_URI} !^/archives
+RewriteCond %{REQUEST_URI} !^/autoproj_bootstrap
+RewriteCond %{REQUEST_URI} !^/bootstrap.sh
 RewriteRule ^(.*)   /stable/$1 [R=302]
 
 #generated entries by build_scripts/rock_doc_publish
