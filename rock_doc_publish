@@ -37,6 +37,8 @@ then
 fi
 
 cp $BULD_SCRIPT_DIR/template/* $TARGET_DIR
+#The CP call does not copy all files, for secutiy copy (yet) only the .htaccess file specially
+cp $BULD_SCRIPT_DIR/template/.htaccess $TARGET_DIR
 
 if [ -n "$ARCHIVES" ]; then
     if [ -d $ARCHIVES ]; then

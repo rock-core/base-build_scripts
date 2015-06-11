@@ -5,8 +5,8 @@ RewriteRule ^stable/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-c
 RewriteRule ^autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]
 
 #static redireccty for current bootstrap scripts:
-RewriteRule ^stable/bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/rock-15.05/bootstrap.sh [R=301]
-RewriteRule ^bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/master/bootstrap.sh [R=301]
+RewriteRule ^stable/bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/rock-15.05/bootstrap.sh [R=302]
+RewriteRule ^bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/master/bootstrap.sh [R=302]
 
 # Rules to have backward compatibility with existing links
 RewriteRule ^news  http://blog.rock-robotics.org [L,R=301]
