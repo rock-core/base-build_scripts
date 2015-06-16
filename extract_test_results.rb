@@ -17,10 +17,9 @@ table.css('a').each do |a|
 #        binding.pry
 
         #Download zip of testsuites
-        jobname = (a['href'].match /job\/([A-z\-_]*)/)[1]
+        jobname = (a['href'].match /Flavor=([A-z]*)/)[1]
         node = (a['href'].match /node=([A-z\-_\.0-9]*)/)[1]
-
-        project_url = (a['href'].match /job\/(.*)\/[0-9]/)[1]
+        project_url =  ARGV[0] + "/" + (a['href'].match /(Fla[A-z\-_\.0-9=,]*)/)[1] 
 
         #make jobname and nodename path-safe
         jobname = jobname.gsub("/","_").gsub(".","_")
