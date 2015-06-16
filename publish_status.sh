@@ -35,8 +35,6 @@ echo "<h1>Overview</h1>" >> status/index.html
 ruby ./extract_overview.rb >> status/index.html
 #Generate issues page
 ruby ./generate_issue_page.rb || true #This is not critical for us
-#Extract the Test results
-ruby ./extract_test_results.rb || true #This is not critical for us
 
 #get rss feeds
 echo '<a href="rssAll"><img border="0" width="16" height="16" src="atom.gif" alt="Feed"></img>RSS for all</a><br>' >> status/index.html
@@ -61,6 +59,9 @@ for build in $@; do
 	echo "<h1>$build</h1>" >> status/index.html
 	#echo "<iframe src=\"$build.html\" width=\"440\" height=\"120\"></iframe>" >> status/index.html
 	ruby ./extract_status.rb $build >> status/index.html
+        #Extract the Test results
+	echo "getting test-results of $build"
+        ruby ./extract_test_results.rb $build || true #This is not critical for us
 done
 
 echo "</body></html>" >> status/index.html
