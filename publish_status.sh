@@ -35,6 +35,8 @@ echo "<h1>Overview</h1>" >> status/index.html
 ruby ./extract_overview.rb >> status/index.html
 #Generate issues page
 ruby ./generate_issue_page.rb || true #This is not critical for us
+#Extract the Test results
+ruby ./extract_test_results.rb || true #This is not critical for us
 
 #get rss feeds
 echo '<a href="rssAll"><img border="0" width="16" height="16" src="atom.gif" alt="Feed"></img>RSS for all</a><br>' >> status/index.html
