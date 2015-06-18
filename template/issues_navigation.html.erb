@@ -1,0 +1,23 @@
+<div class="nav3">
+  <%
+    orgs = {}
+    @vars[:issues].each do |name, iss|
+      org_name = name.split("/")[0]
+      orgs[org_name] = {} unless orgs[org_name]
+      orgs[org_name][name] = iss
+    end
+    orgs.each do |org, issues|
+      org_issues = issues.map { |_, iss| iss.size }.inject(:+)
+      if org_issues > 0
+  %>
+        <div class="title"><%= org %></div>
+        <ul>
+          <% issues.each do |name, iss| %>
+            <% if iss.size > 0 %>
+              <li><a href="#<%= name %>"><%= name.split("/")[1] %></a></li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+</div>

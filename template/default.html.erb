@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <meta name="description" content="The Robot Construction Kit - a robot software development environment" />
+  <meta name="keywords" content="robotics,toolchain,components,field robotics,underwater robotics" />
+  <meta name="author" content="The Rock core team" />
+  <title><%= @vars[:title] %></title>
+   <script type="text/javascript" language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+   <link rel="stylesheet" href="http://rock-robotics.org/stable/style_screen.css" type="text/css" />
+   <meta http-equiv="x-dns-prefetch-control" content="off"/>
+</head>
+
+<body>
+  <div class="page-container-2">
+      <div class="nav1-container">
+          <div class="nav1">
+          </div>
+          <div class="search">
+              <div id="cse-search-form" style="width: 100%;">Loading</div>
+              <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+              <script type="text/javascript">
+                google.load('search', '1', {language : 'en'});
+                google.setOnLoadCallback(function() {
+                  var customSearchControl = new
+              google.search.CustomSearchControl('008757635177184297913:WMX139135563');
+                  customSearchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+                  var options = new google.search.DrawOptions();
+                  options.enableSearchboxOnly("<%= @vars[:base_path] %>/search_results.html");
+                  customSearchControl.draw('cse-search-form', options);
+                }, true);
+              </script>
+              <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css"
+              type="text/css" />
+              <style type="text/css">
+                input.gsc-input {
+                  border-color: #BCCDF0;
+                }
+                input.gsc-search-button {
+                  border-color: #CECECE;
+                  background-color: #E9E9E9;
+                }
+              </style>
+          </div>
+      </div>
+
+      <div class="site-name" onclick="location.href='<%= @vars[:base_path] %>';" style="cursor: pointer; z-index: 10;">
+          <p class="title">Rock</p>
+          <p class="subtitle">the Robot Construction Kit</p>
+      </div>
+
+      <div class="title_buffer"></div>
+
+      <div class="nav2">
+          <ul>
+            <li><%= render "template/#{@vars[:page]}_breadcrumb.html.erb" %><span class="empty">&nbsp;</span></li>
+          </ul>
+      </div>
+
+      <div class="buffer">
+          <div class="flavor_nav">
+          </div>
+      </div>
+
+      <div class="leftnav">
+        <%= render "template/#{@vars[:page]}_navigation.html.erb" %>
+      </div>
+
+
+      <div class="content2">
+          <div class="content2-pagetitle"><%= @vars[:heading] %></div>
+          <div class="content2-container line-box">
+              <div class="content2-container-1col">
+                <%= render "template/#{@vars[:page]}_content.html.erb" %>
+              </div>
+          </div>
+          This page got updated at <%= Time.now %>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div><p style="text-align:center;"><a href="<%= @vars[:base_path] %>/impressum.html">Imprint/Impressum</a></div></p>
+        <div class="nav1">
+          <ul>
+            <li><a href="<%= @vars[:base_path] %>/documentation/about/index.html">About Rock</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+</body>
+</html>
+
+<!--
+vim:tw=0:ft=eruby
+-->
+

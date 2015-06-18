@@ -1,0 +1,11 @@
+<% @vars[:issues].each do |name, iss| %>
+  <% if iss.size > 0 %>
+    <% pr_cnt = 0; iss.each { |is| pr_cnt = pr_cnt +1 if  is['html_url'].include? "pull" } %>
+    <h2 id="<%= name %>"><a href="http://github.com/<%= name %>">Package</a> <%= name %> has <%= iss.size %> <a href="http://github.com/<%= name %>/issues?q=is%3Aopen">issues</a> from this <%= pr_cnt %> are <a href="http://github.com/<%= name %>/pulls?q=is%3Aopen">Pull-Requests</a></h2>
+    <ul>
+    <% iss.each do |is| %>
+      <li><a href="<%= is['html_url'] %>"><%= if is['html_url'].include? "pull" then "Pull-Request" else "Issue" end %> <%= is['number'] %></a> <%= is['title'] %></li>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>
