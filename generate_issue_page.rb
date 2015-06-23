@@ -1,6 +1,7 @@
 require 'net/http'
 require 'open-uri'
 require 'json'
+require_relative 'page'
 
 if ENV['GITHUB_ACCESS_TOKEN'].nil?
     File.open("status/issues.html","w") do |file|
@@ -47,6 +48,7 @@ erg = get_repros_for_organization(["rock-core","rock-gui","rock-bundles","rock-c
 issues = Hash.new
 
 erg.each do |name|
+    puts "Getting issues for #{name}"
     issues[name] = get_pulls_for_repro(name)
 end
 
@@ -60,18 +62,9 @@ issues.each do |k,v|
 end
 
 File.open("status/issues.html","w") do |file|
-    file.puts "<html><head><title>Issus of rock #{count} (PRs: #{pull_count})</title></head><body>"
-    file.puts "<h1>Issues: #{count} from this #{pull_count} are Pull-requests</h1>"
-    issues.each do |name,iss|
-        pr_cnt = 0
-        iss.each { |is| pr_cnt = pr_cnt +1 if  is['html_url'].include? "pull" }
-        file.puts "<h2> <a href=\"http://github.com/#{name}\">Package</a> #{name} has #{iss.size} <a href=\"http://github.com/#{name}/issues?q=is%3Aopen\">issues</a> from this #{pr_cnt} are <a href=\"http://github.com/#{name}/pulls?q=is%3Aopen\">Pull-Requests</a></h2>" if iss.size >0
-        iss.each do |is|
-            desc = if is['html_url'].include? "pull" then "Pull-Request" else "Issue" end
-
-            file.puts "<a href=\"#{is['html_url']}\">#{desc} #{is['number']}</a> #{is['title']}<br/>"
-        end
-    end
-    file.puts "This page got updated at #{Time.now}"
-    file.puts "</body></html>"
+    base_path = "http://rock-robotics.org"
+    title = "Issues of rock #{count} (PRs: #{pull_count})"
+    heading = "Issues: #{count} from this #{pull_count} are Pull-requests"
+    page = Page.new({page: "issues", base_path: base_path, title: title, heading: heading, issues: issues})
+    file.puts page.render('template/default.html.erb')
 end
