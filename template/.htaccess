@@ -1,12 +1,15 @@
 RewriteEngine on
 
+
 #static redirect for http://rock-robotics.org/autoproj_bootstrap (overrides previous rules)
-RewriteRule ^stable/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=301]
-RewriteRule ^autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=301]
+RewriteRule ^stable/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=302]
+RewriteRule ^master/autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/master/bin/autoproj_bootstrap [R=302]
+RewriteRule ^autoproj_bootstrap$ https://raw.githubusercontent.com/rock-core/autoproj/stable/bin/autoproj_bootstrap [R=302]
 
 #static redireccty for current bootstrap scripts:
 RewriteRule ^stable/bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/rock-15.05.1/bootstrap.sh [R=302]
-RewriteRule ^bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/master/bootstrap.sh [R=302]
+RewriteRule ^master/bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/master/bootstrap.sh [R=302]
+RewriteRule ^bootstrap.sh$ https://raw.githubusercontent.com/rock-core/buildconf/rock-15.05.1/bootstrap.sh [R=302]
 
 # Rules to have backward compatibility with existing links
 RewriteRule ^news  http://blog.rock-robotics.org [L,R=301]
