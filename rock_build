@@ -118,7 +118,12 @@ echo $FLAVOR
 echo $BOOTSTRAP_ARGS
 
 if test -z "$BOOTSTRAP_URL"; then
-    BOOTSTRAP_URL=http://rock-robotics.org/autoproj_bootstrap
+    if [ "x$FLAVOR" = "xmaster" ]; then
+        BOOTSTRAP_URL=http://rock-robotics.org/master/autoproj_bootstrap
+    else
+        BOOTSTRAP_URL=http://rock-robotics.org/autoproj_bootstrap
+    fi
+
 fi
 
 if test -z "$AUTOPROJ_OSDEPS_MODE"; then
@@ -239,7 +244,7 @@ if ! test -d dev/autoproj; then
     mkdir -p dev
     ( set -ex
       cd dev
-      $RUBY ../$bootstrap_script_name --no-color --no-progress $BOOTSTRAP_ARGS
+      $RUBY ../$bootstrap_script_name --no-progress $BOOTSTRAP_ARGS
     )
 fi
 
@@ -272,8 +277,8 @@ PREV_DIR=`pwd`
       sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./autoproj/config.yml
   fi
 
-  autoproj --no-color --no-progress update tools/autoproj tools/autobuild
-  autoproj --no-color --no-progress build tools/autoproj tools/autobuild
+  autoproj --no-progress update tools/autoproj tools/autobuild
+  autoproj --no-progress build tools/autoproj tools/autobuild
  )
 cd $PREV_DIR
 fi
@@ -306,11 +311,11 @@ echo "Finished preparing, starting build at `date` with $RUBY"
   fi
 
   if test "x$FORCE_DOCGEN" = "0x1"; then  
-    UPDATE_STATUS=$(autoproj --no-color --no-progress update $UPDATEFLAGS)
-    BUILD_STATUS=$(autoproj --no-color --no-progress build $BUILDFLAGS)	
+    UPDATE_STATUS=$(autoproj --no-progress update $UPDATEFLAGS)
+    BUILD_STATUS=$(autoproj --no-progress build $BUILDFLAGS)
   else
-    autoproj --no-color --no-progress update $UPDATEFLAGS
-    autoproj --no-color --no-progress build $BUILDFLAGS
+    autoproj --no-progress update $UPDATEFLAGS
+    autoproj --no-progress build $BUILDFLAGS
     touch successful
   fi
 )
@@ -343,7 +348,7 @@ if test "x$DOCGEN" = "xtrue"; then
       $GEM rdoc autobuild
 
       echo "generating the API documentation from the autoproj packages"
-      autoproj doc --no-color
+      autoproj doc 
 
       echo "Generating the model pack"
       rm -f install/doc/model-pack.tar.bz2
