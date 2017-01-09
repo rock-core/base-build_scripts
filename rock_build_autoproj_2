@@ -271,7 +271,6 @@ PREV_DIR=`pwd`
   if [ -n "$USE_OCL" ]; then
       sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./.autoproj/config.yml
   fi
-
   autoproj update --no-color --no-progress tools/autoproj tools/autobuild
   autoproj build --no-color --no-progress tools/autoproj tools/autobuild
  )
@@ -298,6 +297,9 @@ echo "Finished preparing, starting build at `date` with $RUBY"
   if [ "x$STABLE_BUILD" == "xtrue" ]; then
     echo "Autoproj.manifest.each_autobuild_package { |pkg| pkg.add_tag 'stable' }" >> autoproj/init.rb
   fi
+
+  echo "gems_install_path: $GEM_PATH" >> ./.autoproj/config.yml
+
 
   if test "x$BUILD_TESTS" = "xtrue"; then
       autoproj test enable
