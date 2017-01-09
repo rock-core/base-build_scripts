@@ -298,7 +298,7 @@ echo "Finished preparing, starting build at `date` with $RUBY"
     echo "Autoproj.manifest.each_autobuild_package { |pkg| pkg.add_tag 'stable' }" >> autoproj/init.rb
   fi
 
-  echo "gems_install_path: $GEM_PATH" >> ./.autoproj/config.yml
+  echo "gems_install_path: $GEM_HOME" >> ./.autoproj/config.yml
 
 
   if test "x$BUILD_TESTS" = "xtrue"; then
