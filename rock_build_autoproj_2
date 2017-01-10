@@ -248,7 +248,7 @@ if ! test -d dev/autoproj; then
     mkdir -p dev
     ( set -ex
       cd dev
-      $RUBY ../$bootstrap_script_name --no-color --no-progress git $BOOTSTRAP_ARGS
+      $RUBY ../$bootstrap_script_name --no-color --no-progress $BOOTSTRAP_ARGS
     )
 fi
 
