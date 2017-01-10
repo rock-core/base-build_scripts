@@ -280,10 +280,6 @@ PREV_DIR=`pwd`
       sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./.autoproj/config.yml
   fi
 
-  if test -n "$TYPELIB_CXX_LOADER"; then
-    echo "typelib_cxx_loader: $TYPELIB_CXX_LOADER" >> ./.autoproj/config.yml
-  fi
-
   autoproj update --no-color --no-progress tools/autoproj tools/autobuild
   autoproj build --no-color --no-progress tools/autoproj tools/autobuild
  )
@@ -318,6 +314,10 @@ echo "Finished preparing, starting build at `date` with $RUBY"
 #  else
 #      autoproj test disable
 #  fi
+
+  if test -n "$TYPELIB_CXX_LOADER"; then
+    echo "typelib_cxx_loader: $TYPELIB_CXX_LOADER" >> ./.autoproj/config.yml
+  fi
 
   if test "x$FORCE_DOCGEN" = "0x1"; then  
     UPDATE_STATUS=$(autoproj update --no-color --no-progress $UPDATEFLAGS)
