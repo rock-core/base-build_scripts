@@ -200,7 +200,7 @@ fi
 
 # Always delete autoproj's configuration directory so that we always start fresh
 # Otherwise, it would not get updated
-rm -rf dev/.autoproj/remotes dev/.autoproj/config.yml
+rm -rf dev/.autoproj/remotes
 
 # If there is an archive cache, copy it into our working directory
 if test -d archive_cache; then
@@ -211,14 +211,6 @@ fi
 
 export AUTOPROJ_OSDEPS_MODE
 export AUTOPROJ_BOOTSTRAP_IGNORE_NONEMPTY_DIR=1
-
-#mkdir -p $PWD/dev/.autoproj/gems
-#export GEM_HOME=$GEM_HOME:$PWD/dev/.autoproj/gems
-#export PATH=$PATH:$PWD/dev/.autoproj/bin
-
-#echo "--------- install bundler"
-#    $GEM install bundler --no-rdoc --no-ri
-#echo "--------- install bundler 2"
 
 # Install yard early, some C++ packages with Ruby bindings will pick it up and
 # use it to generate the Ruby binding documentation
@@ -236,9 +228,6 @@ fi
 if test "x$RUN_TESTS" = "xtrue"; then
     BUILD_TESTS=true
 fi
-
-#mkdir -p $PWD/dev/.autoproj/gems
-#export GEM_HOME=$PWD/dev/.autoproj/gems
 
 # If there are no autoproj/ directory, we need to start by bootstrapping
 if ! test -d dev/autoproj; then
@@ -295,10 +284,10 @@ echo "Finished preparing, starting build at `date` with $RUBY"
   cd dev
   . ./env.sh
   cat $configfile >> ./.autoproj/config.yml
-#  if [ -n "$USE_OCL" ]; then
-#      sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./.autoproj/config.yml
-#  fi
-#
+  if [ -n "$USE_OCL" ]; then
+      sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./.autoproj/config.yml
+  fi
+
 #  if [ -n "$DISPLAYED_ERROR_LINE_COUNT" ]; then
 #    echo "Autobuild.displayed_error_line_count = $DISPLAYED_ERROR_LINE_COUNT" >> autoproj/init.rb
 #  fi
@@ -315,8 +304,9 @@ echo "Finished preparing, starting build at `date` with $RUBY"
 #      autoproj test disable
 #  fi
 
+  
   if test -n "$TYPELIB_CXX_LOADER"; then
-    echo "typelib_cxx_loader: $TYPELIB_CXX_LOADER" >> ./.autoproj/config.yml
+    sed -i "s/typelib_cxx_loader:.*$/typelib_cxx_loader: $TYPELIB_CXX_LOADER/g" ./.autoproj/config.yml
   fi
 
   if test "x$FORCE_DOCGEN" = "0x1"; then  
