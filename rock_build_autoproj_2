@@ -318,7 +318,7 @@ echo "Finished preparing, starting build at `date` with $RUBY"
     UPDATE_STATUS=$(autoproj update --no-color --no-progress $UPDATEFLAGS)
     BUILD_STATUS=$(autoproj build --no-color --no-progress $BUILDFLAGS)	
   else
-    autoproj update --no-color --no-progress $UPDATEFLAGS
+    autoproj update --no-color --no-progress -p1 $UPDATEFLAGS
     autoproj build --no-color --no-progress $BUILDFLAGS
     touch successful
   fi
