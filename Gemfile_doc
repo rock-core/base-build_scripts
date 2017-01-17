@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+gem "hoe"
+gem "coderay"
+gem "rdoc"
+gem "cmdparse", "2.0.6"
+gem "webgen", "0.5.17"
+
