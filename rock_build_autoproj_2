@@ -367,23 +367,23 @@ if test "x$DOCGEN" = "xtrue"; then
       echo "copying API documentation to $api_dir"
       rsync -a --delete install/doc/ $api_dir/
       
-      autoproj_version=`$RUBY -e "require 'autoproj'; puts Autoproj::VERSION"`
-      autoproj_api_dir=$GEM_HOME/doc/autoproj-$autoproj_version
-      if test -d $autoproj_api_dir; then
-          echo "copying autoproj API documentation to $api_dir/autoproj"
-          rsync -a --delete $autoproj_api_dir/rdoc/ $api_dir/autoproj/
-      else
-          echo "could not find the autoproj API in $autoproj_api_dir"
-      fi
+      #autoproj_version=`$RUBY -e "require 'autoproj'; puts Autoproj::VERSION"`
+      #autoproj_api_dir=$GEM_HOME/doc/autoproj-$autoproj_version
+      #if test -d $autoproj_api_dir; then
+      #    echo "copying autoproj API documentation to $api_dir/autoproj"
+      #    rsync -a --delete $autoproj_api_dir/rdoc/ $api_dir/autoproj/
+      #else
+      #    echo "could not find the autoproj API in $autoproj_api_dir"
+      #fi
       
-      autobuild_version=`$RUBY -e "require 'autobuild'; puts Autobuild::VERSION"`
-      autobuild_api_dir=$GEM_HOME/doc/autobuild-$autobuild_version
-      if test -d $autobuild_api_dir; then
-          echo "copying autobuild API documentation to $api_dir/autobuild"
-          rsync -a $autobuild_api_dir/rdoc/ $api_dir/autobuild/
-      else
-          echo "could not find the autobuild API in $autobuild_api_dir"
-      fi
+      #autobuild_version=`$RUBY -e "require 'autobuild'; puts Autobuild::VERSION"`
+      #autobuild_api_dir=$GEM_HOME/doc/autobuild-$autobuild_version
+      #if test -d $autobuild_api_dir; then
+      #    echo "copying autobuild API documentation to $api_dir/autobuild"
+      #    rsync -a $autobuild_api_dir/rdoc/ $api_dir/autobuild/
+      #else
+      #    echo "could not find the autobuild API in $autobuild_api_dir"
+      #fi
     ) 2>&1 | tee docgen.txt
     echo "Finished documentation generation at `date`"
     touch dev/doc-successful
