@@ -1,0 +1,8 @@
+#Dockerfile to run maintanance on debian-based docker images using jenkins and "CloudBees Docker Build and Publish plugin"
+#https://wiki.jenkins.io/display/JENKINS/CloudBees+Docker+Build+and+Publish+plugin
+#https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/index.html#docker-build-publish
+
+RUN sudo apt-get update && apt-get -y dist-upgrade
+
+
+
