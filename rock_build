@@ -248,7 +248,7 @@ fi
 BUILDFLAGS=""
 UPDATEFLAGS=""
 if ! test -z "$PARALLEL"; then
-    BUILDFLAGS+=" -p$PARALLEL"
+    BUILDFLAGS+=" --parallel=$PARALLEL"
 fi
 if test "$KEEP_GOING" = "true" ; then
     BUILDFLAGS+=" -k"
@@ -273,8 +273,8 @@ PREV_DIR=`pwd`
       sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./autoproj/config.yml
   fi
 
-  autoproj --no-color --no-progress update tools/autoproj tools/autobuild
-  autoproj --no-color --no-progress build tools/autoproj tools/autobuild
+  autoproj update --no-color --no-progress tools/autoproj tools/autobuild
+  autoproj build --no-color --no-progress tools/autoproj tools/autobuild
  )
 cd $PREV_DIR
 fi
@@ -307,11 +307,11 @@ echo "Finished preparing, starting build at `date` with $RUBY"
   fi
 
   if test "x$FORCE_DOCGEN" = "0x1"; then  
-    UPDATE_STATUS=$(autoproj --no-color --no-progress update $UPDATEFLAGS)
-    BUILD_STATUS=$(autoproj --no-color --no-progress build $BUILDFLAGS)	
+    UPDATE_STATUS=$(autoproj update --no-color --no-progress $UPDATEFLAGS)
+    BUILD_STATUS=$(autoproj build --no-color --no-progress $BUILDFLAGS)	
   else
-    autoproj --no-color --no-progress update $UPDATEFLAGS
-    autoproj --no-color --no-progress build $BUILDFLAGS
+    autoproj update --no-color --no-progress $UPDATEFLAGS
+    autoproj build --no-color --no-progress $BUILDFLAGS
     touch successful
   fi
 )
