@@ -287,9 +287,9 @@ echo "Finished preparing, starting build at `date` with $RUBY"
 ( set -ex
   cd dev
   . ./env.sh
-  cp $configfile ./autoproj/config.yml
+  cp $configfile .autoproj/config.yml
   if [ -n "$USE_OCL" ]; then
-      sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./autoproj/config.yml
+      sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" .autoproj/config.yml
   fi
 
   if [ -n "$DISPLAYED_ERROR_LINE_COUNT" ]; then
