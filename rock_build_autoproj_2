@@ -291,7 +291,7 @@ echo "Finished preparing, starting build at `date` with $RUBY"
   fi
 
   if [ -n "$DISPLAYED_ERROR_LINE_COUNT" ]; then
-    echo "Autobuild.displayed_error_line_count = $DISPLAYED_ERROR_LINE_COUNT" >> autoproj/init.rb
+    echo "Autobuild::displayed_error_line_count = $DISPLAYED_ERROR_LINE_COUNT" >> autoproj/init.rb
   fi
 #
 #  if [ "x$STABLE_BUILD" == "xtrue" ]; then
