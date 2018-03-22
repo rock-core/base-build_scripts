@@ -290,9 +290,9 @@ echo "Finished preparing, starting build at `date` with $RUBY"
       sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./.autoproj/config.yml
   fi
 
-#  if [ -n "$DISPLAYED_ERROR_LINE_COUNT" ]; then
-#    echo "Autobuild.displayed_error_line_count = $DISPLAYED_ERROR_LINE_COUNT" >> autoproj/init.rb
-#  fi
+  if [ -n "$DISPLAYED_ERROR_LINE_COUNT" ]; then
+    echo "Autobuild.displayed_error_line_count = $DISPLAYED_ERROR_LINE_COUNT" >> autoproj/init.rb
+  fi
 #
 #  if [ "x$STABLE_BUILD" == "xtrue" ]; then
 #    echo "Autoproj.manifest.each_autobuild_package { |pkg| pkg.add_tag 'stable' }" >> autoproj/init.rb
