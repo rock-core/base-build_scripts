@@ -5,7 +5,7 @@ require 'open-uri'
 require 'fileutils'
 require 'net/http'
 
-base_url="http://buildsrv01:8080"
+base_url="http://bob.dfki.uni-bremen.de:8080"
 
 page = Nokogiri::HTML(open("#{base_url}/job/#{ARGV[0]}/lastBuild"))
 page.remove_namespaces!
