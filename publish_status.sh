@@ -11,6 +11,7 @@
 
 set +x
 UPLOAD_PASSWD=`cat /var/lib/jenkins/upload_passwd`
+JENKINS_SERVER='http://bob.dfki.uni-bremen.de:8080'
 
 if [ -x "$UPLOAD_PASSWD" ]; then
     echo "Could not extract upload password, please check if it is set correctly"
@@ -42,9 +43,9 @@ echo '<a href="rssFailed"><img border="0" width="16" height="16" src="atom.gif" 
 echo '<a href="rssLatest"><img border="0" width="16" height="16" src="atom.gif" alt="Feed"></img>RSS for just latest builds</a><br>' >> status/index.html
 (
 cd status
-curl http://buildsrv01:8080/view/Rock/rssLatest > rssLatest
-curl http://buildsrv01:8080/view/Rock/rssFailed > rssFailed
-curl http://buildsrv01:8080/view/Rock/rssAll > rssAll
+curl ${JENKINS_SERVER}/view/Rock/rssLatest > rssLatest
+curl ${JENKINS_SERVER}/view/Rock/rssFailed > rssFailed
+curl ${JENKINS_SERVER}/view/Rock/rssAll > rssAll
 
 #temp for testing package_list
 curl https://raw.githubusercontent.com/planthaber/planthaber.github.io/master/rock-package-list/JSON.js > JSON.js
