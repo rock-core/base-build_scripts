@@ -3,7 +3,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 
-file = open("http://buildsrv01:8080/view/Rock/")
+file = open("http://bob.dfki.uni-bremen.de:8080/view/Rock/")
 overview = Nokogiri::HTML(file).remove_namespaces!
 
 #remove headline
