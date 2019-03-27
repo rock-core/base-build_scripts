@@ -238,7 +238,7 @@ if ! test -d dev/autoproj; then
     mkdir -p dev
     ( set -ex
       cd dev
-      $RUBY ../$bootstrap_script_name --no-color --no-progress $BOOTSTRAP_ARGS
+      $RUBY ../$bootstrap_script_name --no-color --no-progress --seed-config=$configfile $BOOTSTRAP_ARGS
     )
 fi
 
@@ -265,7 +265,6 @@ PREV_DIR=`pwd`
 ( set -ex
   cd dev
   . ./env.sh
-  cat $configfile >> ./.autoproj/config.yml
   if [ -n "$USE_OCL" ]; then
       sed -i "s/USE_OCL:.*$/USE_OCL: $USE_OCL/g" ./.autoproj/config.yml
   fi
